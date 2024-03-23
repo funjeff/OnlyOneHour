@@ -7,10 +7,10 @@ public class bit extends GameObject {
 	public bit(int value) {
 		this.val = value;
 		if (val == 0) {
-			this.setSprite(new Sprite("D:/workspace/OnlyOneHour/resources/sprites/one.png"));
+			this.setSprite(new Sprite("resources/sprites/one.png"));
 		}
 		else {
-			this.setSprite(new Sprite("D:/workspace/OnlyOneHour/resources/sprites/zero.png"));
+			this.setSprite(new Sprite("resources/sprites/zero.png"));
 		}
 		this.useSpriteHitbox();
 	}
@@ -20,11 +20,11 @@ public class bit extends GameObject {
 		
 		if (this.hitbox().contains(getCursorX(), getCursorY()) && this.mouseButtonDown(0)) {
 			if (val == 0) {
-				this.setSprite(new Sprite("D:/workspace/OnlyOneHour/resources/sprites/one.png"));
+				this.setSprite(new Sprite("resources/sprites/one.png"));
 				val = 1;
 			}
 			else {
-				this.setSprite(new Sprite("D:/workspace/OnlyOneHour/resources/sprites/zero.png"));
+				this.setSprite(new Sprite("resources/sprites/zero.png"));
 				val = 0;
 			}
 		}
