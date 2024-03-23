@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
+import gameObjects.KeyGame;
 import map.Room;
 
 
@@ -23,7 +24,6 @@ public class GameCode {
 	
 	static int veiwX;
 	static int veiwY;
-	static onlyPipe op = new onlyPipe();
 	//static Timer t = new Timer (10000);
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
