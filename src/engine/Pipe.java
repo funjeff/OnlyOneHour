@@ -4,6 +4,7 @@ public class Pipe extends GameObject{
 	
 	boolean clear = true;	
 	boolean lost = false;
+	boolean won = false;
 	int difficulty;
 	public JumpGuy curGuy;
 	
@@ -23,7 +24,7 @@ public class Pipe extends GameObject{
 		clear = false;
 		JumpGuy guy = new JumpGuy ();
 		guy.declare(this.getX() + 40,this.getY());
-		guy.setSpeed(.3 + (difficulty*.3));
+		guy.setSpeed(.3 + (difficulty*.1));
 		guy.spawner = this;
 		curGuy = guy;
 	}
@@ -34,12 +35,16 @@ public class Pipe extends GameObject{
 		guy.declare(this.getX() + 40,this.getY());
 		guy.makeLoner();
 		guy.spawner = this;
-		guy.setSpeed(.7 + (difficulty*.3));
+		guy.setSpeed(.3 + (difficulty*.1));
 		curGuy = guy;
 	}
 	
 	public boolean hasLost () {
 		return lost;
+	}
+	
+	public boolean hasWon () {
+		return won;
 	}
 	
 }
