@@ -15,7 +15,6 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
-import gameObjects.Reporter;
 import map.Room;
 
 
@@ -24,7 +23,10 @@ public class GameCode {
 	
 	static int veiwX;
 	static int veiwY;
-	
+	static onlyPipe ob = new onlyPipe();
+	//static Timer t = new Timer (10000);
+	//static IntroAnimation in = new IntroAnimation("HOUR");
+	//static onlyTimer ot = new onlyTimer ();
 
 	public static void testBitch () {
 		
@@ -40,15 +42,20 @@ public class GameCode {
 	}
 
 	public static void init () {
-
+		
+		//in.declare(100, 100);
+		//t.declare(100, 100);'
+		ob.startGame(4);
 	}
 		
 	
 	
 	public static void gameLoopFunc () {
-		
+		ob.isGameOver();
 		ObjectHandler.callAll();
-		
+//		if (!t.isStarted()) {
+//			t.startTimer();
+//		}
 		
 	}
 	
