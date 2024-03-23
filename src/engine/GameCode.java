@@ -54,7 +54,6 @@ public class GameCode {
 	
 	public static void renderFunc () {
 		ObjectHandler.renderAll();
-		Room.render();
 	}
 	
 	public static void beforeRender() {
