@@ -23,11 +23,11 @@ public class GameCode {
 	
 	static int veiwX;
 	static int veiwY;
-	static onlyPipe ob = new onlyPipe();
+	static onlyPipe op = new onlyPipe();
 	//static Timer t = new Timer (10000);
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
-
+	static onlyBinary ob = new onlyBinary();
 	public static void testBitch () {
 		
 		
@@ -42,20 +42,21 @@ public class GameCode {
 	}
 
 	public static void init () {
-		
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
-		ob.startGame(4);
+//		op.startGame(4);
+		ob.startGame(0);
 	}
 		
 	
 	
 	public static void gameLoopFunc () {
-		ob.isGameOver();
+//		op.isGameOver();
 		ObjectHandler.callAll();
 //		if (!t.isStarted()) {
 //			t.startTimer();
 //		}
+		ob.isGameOver();
 		
 	}
 	
