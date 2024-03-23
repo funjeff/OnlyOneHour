@@ -16,7 +16,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import gameObjects.KeyGame;
-import gameObjects.Reporter;
 import map.Room;
 
 
