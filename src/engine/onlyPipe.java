@@ -108,9 +108,15 @@ public class onlyPipe {
 		if (p1.lost || p2.lost || p3.lost) {
 			isGameWon = false;
 			return true;
+		}
+		
+		if (p1.won || p2.won || p3.won) {
+			isGameWon = true;
+			return true;
 		} else {
 			return false;
 		}
+		
 	}
 	
 	public boolean wasGameWon() {

@@ -4,6 +4,7 @@ public class Pipe extends GameObject{
 	
 	boolean clear = true;	
 	boolean lost = false;
+	boolean won = false;
 	int difficulty;
 	public JumpGuy curGuy;
 	
@@ -40,6 +41,10 @@ public class Pipe extends GameObject{
 	
 	public boolean hasLost () {
 		return lost;
+	}
+	
+	public boolean hasWon () {
+		return won;
 	}
 	
 }

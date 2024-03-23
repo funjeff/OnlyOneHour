@@ -1,5 +1,7 @@
 package engine;
 
+import java.awt.event.KeyEvent;
+
 public class JumpGuy extends GameObject {
 	
 	public JumpGuy() {
@@ -20,6 +22,17 @@ public class JumpGuy extends GameObject {
 			}
 			spawner.clear = true;
 			this.forget();
+		}
+		if (getCursorX()/1284 >= this.getX() &&
+				getCursorX()/1284 <= this.getX() + this.getSprite().getWidth()*2 &&
+				getCursorY()/721.333333333 >= this.getY() &&
+				getCursorY()/721.333333333 <= this.getY() + this.getSprite().getHeight()*2 &&
+				this.mouseButtonReleased(0)) {
+			if (isLoner) {
+				spawner.won = true;
+			} else {
+				spawner.lost = true;
+			}
 		}
 	}
 

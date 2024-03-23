@@ -32,6 +32,7 @@ public class onlyTimer {
 			isGameWon = true;
 			return true;
 		}
+		return false;
 	}
 	
 	public boolean wasGameWon() {
