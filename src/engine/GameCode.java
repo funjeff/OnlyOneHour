@@ -45,7 +45,7 @@ public class GameCode {
 		
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
-		ob.startGame(4);
+		ob.startGame(0);
 	}
 		
 	

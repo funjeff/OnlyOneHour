@@ -5,7 +5,7 @@ public class JumpGuy extends GameObject {
 	public JumpGuy() {
 		this.setSprite(new Sprite("resources/sprites/reporter.png"));
 	}
-	double vy = -20;
+	double vy = -15;
 	boolean isLoner = false;
 	Pipe spawner;
 	double speed = .5;
