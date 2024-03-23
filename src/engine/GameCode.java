@@ -28,6 +28,7 @@ public class GameCode {
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
 	static onlyBinary ob = new onlyBinary();
+	static onlyDodge od = new onlyDodge();
 	public static void testBitch () {
 		
 		
@@ -45,7 +46,8 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 //		op.startGame(4);
-		ob.startGame(0);
+//		ob.startGame(0);
+		od.startGame(0);
 	}
 		
 	
@@ -56,7 +58,7 @@ public class GameCode {
 //		if (!t.isStarted()) {
 //			t.startTimer();
 //		}
-		ob.isGameOver();
+//		ob.isGameOver();
 		
 	}
 	
