@@ -40,7 +40,8 @@ public class GameCode {
 	}
 
 	public static void init () {
-		
+		onlyBinary ob = new onlyBinary();
+		ob.startGame(0);
 	}
 		
 	
