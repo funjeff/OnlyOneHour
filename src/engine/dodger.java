@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class dodger extends GameObject{
 	
@@ -11,6 +12,8 @@ public class dodger extends GameObject{
 	DodgeArrow down;
 	DodgeArrow left;
 	DodgeArrow right;
+
+	static Random rand = new Random();
 	
 	boolean drawSweatDrip = false;
 	
@@ -140,6 +143,21 @@ public class dodger extends GameObject{
 	}
 	
 	public void drawSweatDrip() {
+		int index = rand.nextInt(5);
+		AudioClip ac = new AudioClip("file:resources/sounds/whoEvenWasThat.wav");
+		if (index == 0) {
+			ac = new AudioClip("file:resources/sounds/cantCatchMe.wav");
+		}
+		else if (index == 1) {
+			ac = new AudioClip("file:resources/sounds/illGetYouNextTime.wav");
+		}
+		else if (index == 2) {
+			ac = new AudioClip("file:resources/sounds/illGetYouOneDay.wav");
+		}
+		else if (index == 3) {
+			ac = new AudioClip("file:resources/sounds/lookAtThisLoner.wav");
+		}
+		ac.play();
 		drawSweatDrip = true;
 	}
 	

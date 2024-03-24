@@ -33,6 +33,7 @@ public class TitleScreen extends GameObject {
 	
 	public void delete () {
 		bg.forget ();
+		bg.hide ();
 		sb.forget ();
 		this.forget ();
 	}

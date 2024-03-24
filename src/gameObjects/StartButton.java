@@ -30,6 +30,8 @@ public class StartButton extends GameObject {
 	@Override
 	public void frameEvent () {
 		if (this.mouseButtonClicked (0)) {
+			System.out.println(this.getCursorX());
+			System.out.println(this.getCursorY());
 			if (!pushed) {
 				timeToStart = System.currentTimeMillis () + timeToNextStart;
 			}

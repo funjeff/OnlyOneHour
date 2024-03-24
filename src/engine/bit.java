@@ -1,7 +1,10 @@
 package engine;
 
+import java.util.Random;
+
 public class bit extends GameObject {
 	
+	public Random rand = new Random();
 	public int val;
 	public boolean selectedWrong = false;
 	public bit(int value) {
@@ -23,6 +26,8 @@ public class bit extends GameObject {
 				getCursorY()/721.333333333 <= this.getY() + this.getSprite().getHeight() &&
 				this.mouseButtonReleased(0)) {
 			if (val == 0) {
+				AudioClip ac = new AudioClip("file:resources/sounds/one" + rand.nextInt(4) + ".wav");
+				ac.play();
 				this.setSprite(new Sprite("resources/sprites/1 bit.png"));
 				val = 1;
 			}

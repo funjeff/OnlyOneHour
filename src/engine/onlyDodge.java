@@ -6,6 +6,13 @@ import gameObjects.Game;
 
 public class onlyDodge extends GameObject implements Game {
 	
+	static Random rand = new Random();
+	
+	public static void main(String[] args) {
+		onlyBinary ob = new onlyBinary();
+		ob.startGame(0);
+	}
+	
 	public int difficulty;
 	public boolean isGameOver = false;
 	public boolean isGameWon = false;
@@ -24,13 +31,22 @@ public class onlyDodge extends GameObject implements Game {
 	}
 	
 	public void setTheScene() {
+		int index = rand.nextInt(3);
+		AudioClip ac = new AudioClip("file:resources/sounds/ImHungry.wav");
+		if (index == 0) {
+			ac = new AudioClip("file:resources/sounds/ImGonnaEatYou.wav");
+		}
+		else if (index == 1) {
+			ac = new AudioClip("file:resources/sounds/NOMNOMNOM.wav");
+		}
+		ac.play();
 		Random rand = new Random();
 		direction = rand.nextInt(4);
 		m = new monster(direction);
 		d = new dodger();
 		
-		m.speed = 1.0 + (.1*difficulty);
-		d.speed = 1.0 + (.1*difficulty);
+		m.speed = .6 + (.1*difficulty);
+		d.speed = .6 + (.1*difficulty);
 		dodgeBackground.declare();
 	}
 	
