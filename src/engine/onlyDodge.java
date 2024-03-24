@@ -45,8 +45,8 @@ public class onlyDodge extends GameObject implements Game {
 		m = new monster(direction);
 		d = new dodger();
 		
-		m.speed = 1.0 + (.1*difficulty);
-		d.speed = 1.0 + (.1*difficulty);
+		m.speed = .6 + (.1*difficulty);
+		d.speed = .6 + (.1*difficulty);
 		dodgeBackground.declare();
 	}
 	
