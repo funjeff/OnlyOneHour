@@ -3,9 +3,10 @@ package engine;
 import java.util.ArrayList;
 import java.util.Random;
 
+import gameObjects.Game;
 import map.Background;
 
-public class onlyTrolly {
+public class onlyTrolly extends GameObject implements Game {
 	
 	int difficulty = 0;
 	boolean isGameWon;

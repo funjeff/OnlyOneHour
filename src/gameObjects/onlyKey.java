@@ -12,7 +12,7 @@ import engine.IntroAnimation;
 import engine.Sprite;
 import engine.Timer;
 
-public class KeyGame extends GameObject implements Game {
+public class onlyKey extends GameObject implements Game {
 	
 	static Random rand = new Random();
 
@@ -31,12 +31,15 @@ public class KeyGame extends GameObject implements Game {
 	long gameTime;
 	Timer gameTimer;
 	
+	boolean won;
+	
 	BigText currText = null;
+	BigText failText = null;
 	boolean guessedCorrect = false;
 	
 	ArrayList<BigText> displayTexts;
 	
-	public KeyGame () {
+	public onlyKey () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
 		allNames = new String[possibleKeys.length() + bonusKeys.length];
 		for (int i = 0; i < possibleKeys.length(); i++) {
@@ -60,12 +63,10 @@ public class KeyGame extends GameObject implements Game {
 	public void startGame (int difficulty) {
 		keyBackground = new GameBackground(new Sprite("resources/sprites/Keyboard.png"));
 		generateKey();
-		gameTimer = new Timer(difficulty * 1000);
+		gameTimer = new Timer(difficulty * 1000, Color.black);
 		gameTimer.declare (460, 40);
 		gameTimer.startTimer ();
 		gameTime = difficulty * 1000;
-		IntroAnimation anim = new IntroAnimation("LEFT", IntroAnimation.EFFECT_ID_WORDS_STAR_WARS);
-		anim.declare (300, 300);
 		displayTexts = new ArrayList<BigText> ();
 	}
 
@@ -82,32 +83,38 @@ public class KeyGame extends GameObject implements Game {
 
 	@Override
 	public boolean isGameOver () {
-		// TODO Auto-generated method stub
-		return false;
+		return won || gameTimer.hasExpired();
 	}
 
 	@Override
 	public boolean wasGameWon () {
-		// TODO Auto-generated method stub
-		return false;
+		return won;
 	}
 	
 	@Override
 	public void frameEvent () {
+		if (!won && gameTimer.hasExpired() && failText == null) {
+			failText = new BigText("TIME'S UP", Color.RED, 80);
+			failText.declare(300, 270);
+			displayTexts.add (failText);
+		}
 		if (!guessedCorrect) {
 			for (int i = 0; i < allKeys.length; i++) {
 				int currKey = allKeys[i];
 				if (this.keyPressed (currKey)) {
 					if (currKey == correctKey) {
-						BigText newText = new BigText("The key was:", Color.MAGENTA, 80);
-						newText.declare(250, 220);
-						displayTexts.add (newText);
-						currText = new BigText(correctKeyStr, Color.MAGENTA, 80);
-						currText.declare(250, 300);
-						displayTexts.add (currText);
-						guessedCorrect = true;
-						AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
-						ac.play();
+						if (!gameTimer.hasExpired()) {
+							won = true;
+							BigText newText = new BigText("The key was:", Color.MAGENTA, 80);
+							newText.declare(250, 220);
+							displayTexts.add (newText);
+							currText = new BigText(correctKeyStr, Color.MAGENTA, 80);
+							currText.declare(250, 300);
+							displayTexts.add (currText);
+							guessedCorrect = true;
+							AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+							ac.play();
+						}
 					} else {
 						if (!guessedCorrect) {
 							int pos = rand.nextInt(13);

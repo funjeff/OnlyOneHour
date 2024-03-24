@@ -12,6 +12,10 @@ public class dodger extends GameObject{
 	DodgeArrow left;
 	DodgeArrow right;
 	
+	boolean drawSweatDrip = false;
+	
+	SweatDrip drip = new SweatDrip();
+	
 	public dodger() {
 		this.setSprite(new Sprite("resources/sprites/dodger1.png"));
 		this.useSpriteHitbox();
@@ -42,6 +46,8 @@ public class dodger extends GameObject{
 	
 	@Override
 	public void frameEvent() {
+		drip.setX(this.getX() + 100);
+		drip.setY(this.getY() - 5);
 		if (dodgeingDir == -1) {
 			up.frameEvent();
 			down.frameEvent();
@@ -88,17 +94,31 @@ public class dodger extends GameObject{
 				dodgeingDir = 10;
 			}
 		}
-		
-		if (dodgeingDir == 1) {
-			this.setY(this.getY() + (16*speed));
-			if (this.getY() > 450) {
-				dodgeingDir = 6;
+
+		if (dodgeingDir == 2) {
+			this.setX(this.getX() - (16*speed));
+			if (this.getX() < 210) {
+				dodgeingDir = 7;
 			}
 		}
 		
-		if (dodgeingDir == 6) {
-			this.setY(this.getY() - (16*speed));
-			if (this.getY() < 240) {
+		if (dodgeingDir == 7) {
+			this.setX(this.getX() + (16*speed));
+			if (this.getX() > 420) {
+				dodgeingDir = 10;
+			}
+		}
+	
+		if (dodgeingDir == 3) {
+			this.setX(this.getX() + (16*speed));
+			if (this.getX() > 630) {
+				dodgeingDir = 8;
+			}
+		}
+		
+		if (dodgeingDir == 8) {
+			this.setX(this.getX() - (16*speed));
+			if (this.getX() < 420) {
 				dodgeingDir = 10;
 			}
 		}
@@ -113,6 +133,19 @@ public class dodger extends GameObject{
 			down.draw();
 			left.draw();
 			right.draw();
+		}
+		if (drawSweatDrip) {
+			drip.draw();
+		}
+	}
+	
+	public void drawSweatDrip() {
+		drawSweatDrip = true;
+	}
+	
+	public class SweatDrip extends GameObject {
+		public SweatDrip () {
+			this.setSprite(new Sprite ("resources/sprites/sweat.png"));
 		}
 	}
 	
