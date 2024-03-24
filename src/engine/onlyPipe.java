@@ -152,6 +152,36 @@ public class onlyPipe extends GameObject implements Game {
 		
 		if (p1.clear && p2.clear && p3.clear) {
 				Random rand = new Random ();
+				int index = rand.nextInt(9);
+				AudioClip end = new AudioClip("file:resources/sounds/dontClickOnMe.wav");
+				if (index == 0) {
+					end = new AudioClip("file:resources/sounds/heyClickOnMe.wav");
+				}
+				else if (index == 1) {
+					end = new AudioClip("file:resources/sounds/heyYouShouldClickOnMe.wav");
+				}
+				else if (index == 2) {
+					end = new AudioClip("file:resources/sounds/woosh2.wav");
+				}
+				else if (index == 3) {
+					end = new AudioClip("file:resources/sounds/woosh3.wav");
+				}
+				else if (index == 4) {
+					end = new AudioClip("file:resources/sounds/outOfPipe.wav");
+				}
+				else if (index == 5) {
+					end = new AudioClip("file:resources/sounds/ahhhhhhhh.wav");
+				}
+				else if (index == 6) {
+					end = new AudioClip("file:resources/sounds/amongUs.wav");
+				}
+				else if (index == 7) {
+					end = new AudioClip("file:resources/sounds/amongUs.wav");
+				}
+				else if (index == 8) {
+					end = new AudioClip("file:resources/sounds/cantCatchMe.wav");
+				}
+				end.play();
 				if (currentIteration != correctIteration) {
 					int amount = rand.nextInt(2) + 1;
 					if (amount == 2) {
