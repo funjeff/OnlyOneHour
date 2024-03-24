@@ -25,7 +25,7 @@ public class ConditionDisplay extends GameObject {
 	public double scaleX = 1;
 	public double scaleY = 1;
 	public ConditionDisplay(boolean succOrFuck) {
-		
+		this.setRenderPriority(18);
 		this.success = succOrFuck;
 		if (success) {		
 			condImage = new ConditionImage(successImages[rand.nextInt(successImages.length)]);

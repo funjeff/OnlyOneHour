@@ -27,6 +27,12 @@ public class onlyCowboy extends GameObject implements Game {
 	Cowboy realboy1;
 	Cowboy realboy2;
 	
+	Tornado t;
+	Grave grave1;
+	Grave grave2;
+	
+	ConditionDisplay cd;
+	
 	public onlyCowboy() {
 	}
 	
@@ -57,6 +63,66 @@ public class onlyCowboy extends GameObject implements Game {
 		
 		if (setting) {
 			clock.declare(430, 0);
+			t = new Tornado();
+			
+			int missingInt = rand.nextInt(3);
+			
+			switch (missingInt) {
+				case 0:
+					if (rand.nextBoolean()) {
+						grave1 = new Grave(1);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(2);
+						grave2.declare(650,250);
+					} else {
+						grave1 = new Grave(2);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(1);
+						grave2.declare(650,250);
+					}
+					break;
+				case 1:
+					if (rand.nextBoolean()) {
+						grave1 = new Grave(0);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(2);
+						grave2.declare(650,250);
+					} else {
+						grave1 = new Grave(2);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(0);
+						grave2.declare(650,250);
+					}
+					break;
+				case 2:
+					if (rand.nextBoolean()) {
+						grave1 = new Grave(0);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(1);
+						grave2.declare(650,250);
+					} else {
+						grave1 = new Grave(1);
+						grave1.declare(160,250);
+						
+						grave2 = new Grave(0);
+						grave2.declare(650,250);
+					}
+					break;
+
+			}
+			
+			if (rand.nextBoolean()) {
+				t.declare(100,220);
+				t.direction = false;
+			} else {
+				t.declare(700,220);
+				t.direction = true;
+			}
 		} else {
 			clock.declare(710, 140);
 			clock.setDrawRotation(3.14/3);
@@ -97,9 +163,34 @@ public class onlyCowboy extends GameObject implements Game {
 		realboy1.forget();
 		realboy2.forget();
 		cowboyBack.forget();
+		if (t != null) {
+			t.forget();
+		}
+		if (grave1 != null) {
+			grave1.forget();
+		}
+		if (grave2 != null) {
+			grave2.forget();
+		}
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 	
 	public boolean isGameOver() {
+		if (t != null) {
+			if (boy1.isColliding(t)) {
+				boy1.setX(t.getX());
+				boy1.setY(t.getY());
+				boy1.setDrawRotation(boy1.drawRotation + .3);
+			}
+			
+			if (boy2.isColliding(t)) {
+				boy2.setX(t.getX());
+				boy2.setY(t.getY());
+				boy2.setDrawRotation(boy2.drawRotation + .3);
+			}
+		}
 		hourtime = hourtime - 1;
 		if (hourtime == 0 && shootTimer == -1) {
 			hour = hour + 1;
@@ -140,12 +231,21 @@ public class onlyCowboy extends GameObject implements Game {
 			if (realboy1.shotOther) {
 				realboy2.getShot(true);
 				isGameWon = true;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
+
 				return true;
 			}
 			
 			if (realboy2.shotOther) {
 				realboy1.getShot(false);
 				isGameWon = false;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 			

@@ -5,10 +5,6 @@ import java.util.Random;
 import gameObjects.Game;
 
 public class onlyDodge extends GameObject implements Game {
-	public static void main(String[] args) {
-		onlyBinary ob = new onlyBinary();
-		ob.startGame(0);
-	}
 	
 	public int difficulty;
 	public boolean isGameOver = false;
@@ -16,6 +12,7 @@ public class onlyDodge extends GameObject implements Game {
 	public int direction;
 	dodger d;
 	monster m;
+	ConditionDisplay cd;
 	
 	int chargeTimer = -1;
 	
@@ -46,6 +43,9 @@ public class onlyDodge extends GameObject implements Game {
 		d.forget();
 		m.forget();
 		dodgeBackground.forget();
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 	
 	public boolean isGameOver() {
@@ -61,6 +61,10 @@ public class onlyDodge extends GameObject implements Game {
 					d.drawSweatDrip();
 					isGameWon = true;
 					isGameOver = true;
+					if (cd == null) {
+						cd = new ConditionDisplay(isGameWon);
+						cd.declare();
+					}
 					return true;
 				}
 			}
@@ -68,6 +72,10 @@ public class onlyDodge extends GameObject implements Game {
 				d.hide();
 				isGameWon = false;
 				isGameOver = true;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 		}

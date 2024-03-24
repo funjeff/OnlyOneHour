@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import engine.AudioClip;
+import engine.ConditionDisplay;
+
 import java.awt.event.KeyEvent;
 import engine.GameObject;
 import engine.IntroAnimation;
@@ -39,6 +41,8 @@ public class onlyKey extends GameObject implements Game {
 	boolean guessedCorrect = false;
 	
 	ArrayList<BigText> displayTexts;
+	
+	ConditionDisplay cd;
 	
 	public onlyKey () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
@@ -82,10 +86,18 @@ public class onlyKey extends GameObject implements Game {
 			currText.forget ();
 		}
 		keyBackground.forget ();
+		
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 
 	@Override
 	public boolean isGameOver () {
+		if (cd == null && won) {
+			cd = new ConditionDisplay(true);
+			cd.declare();
+		}
 		return won || gameTimer.hasExpired();
 	}
 

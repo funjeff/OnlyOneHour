@@ -42,7 +42,7 @@ public class Timer extends GameObject {
 			int timeLeftMills = timeLeft%1000;
 			
 			g.setColor(c);
-			g.drawString(timeLeftSecs + ":" + timeLeftMills, (int)this.getX(), (int)this.getY());
+			g.drawString(timeLeftSecs + ":" + timeLeftMills/10, (int)this.getX(), (int)this.getY());
 		}
 	}
 	

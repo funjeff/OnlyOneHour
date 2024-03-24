@@ -33,6 +33,8 @@ public class GameCode {
 	//static onlyTimer ot = new onlyTimer ();
 //	static KeyGame kg = new KeyGame();
 	
+	
+	static onlyCowboy oc = new onlyCowboy ();
 	static long lastGameStartTime = 0;
 	static int currentGameID = 0;
 	static int nextGameID = 0;
@@ -46,7 +48,7 @@ public class GameCode {
 	// Only one death is 0, only one left is 1
 	static int trolleyChoice = 0;
 	
-	static String[] gameNames = {"COWBOY", "DODGE", "FPS", "KEY", "DEATH", "PERSON", "11111111111111", "MINUTE"};
+	static String[] gameNames = {"O CLOCK", "DODGE", "FPS", "KEY", "DEATH", "PERSON", "11111111111111", "MINUTE"};
 	static Color[] gameTransitionColors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE};
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
@@ -207,7 +209,6 @@ public class GameCode {
 //		if (op.isGameOver()) {
 //			op.endGame();
 //		}
-//		oc.isGameOver();
 		//ot.isGameOver();
 	}
 
