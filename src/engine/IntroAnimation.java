@@ -17,6 +17,8 @@ public class IntroAnimation extends GameObject {
 	public static final int EFFECT_ID_WORDS_SPIRAL = 3;
 	public static final int EFFECT_ID_WORDS_STAR_WARS = 4;
 	
+	public static final int[] MS_OFFSETS = {-500, 0, 0, 0, -250};
+	
 	private static final BufferedImage dummyImg = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
 	
 	int effectId;
@@ -164,6 +166,7 @@ public class IntroAnimation extends GameObject {
 	@Override
 	public void frameEvent() {
 		int timeElapsed = (int)(System.currentTimeMillis () - startTime) / 1;
+		int timeElapsedModified = timeElapsed + MS_OFFSETS[effectId];
 		if (timeElapsed > fadeoutTime[0]) {
 			if (timeElapsed < fadeinTime[0]) {
 				currentFade = ivToDouble(timeElapsed, fadeoutTime);
@@ -172,9 +175,9 @@ public class IntroAnimation extends GameObject {
 			}
 		}
 		if (timeElapsed < fadeinTime[0]) {
-			word1Progress = ivToDouble(timeElapsed, opacityIv1);
-			word2Progress = ivToDouble(timeElapsed, opacityIv2);
-			word3Progress = ivToDouble(timeElapsed, opacityIv3);
+			word1Progress = ivToDouble(timeElapsedModified, opacityIv1);
+			word2Progress = ivToDouble(timeElapsedModified, opacityIv2);
+			word3Progress = ivToDouble(timeElapsedModified, opacityIv3);
 		} else {
 			word1Progress = 0;
 			word2Progress = 0;
@@ -193,14 +196,14 @@ public class IntroAnimation extends GameObject {
 		if (effectId == EFFECT_ID_WORDS_FADE) {
 			g.setColor(new Color(255,255,255,(int)(255*word1Progress)));
 			g.setFont(new Font ("Comic Sans MS",Font.PLAIN,40));
-			g.drawString(firstWordText, (int)this.getX(), (int)this.getY());
+			g.drawString(firstWordText, 300, 275);
 			
 			if (word1Progress == 1) {
 				g.setColor(new Color(255,255,255,(int)(255*word2Progress)));
-				g.drawString(secondWordText, (int)this.getX() + 125, (int)this.getY());
+				g.drawString(secondWordText, 300 + 125, 275);
 				if (word2Progress == 1) {
-					g.setColor(new Color(255,255,255,(int)(255*word3Progress)));
-					g.drawString(thirdWordText, (int)this.getX() + 233, (int)this.getY());
+					g.setColor(new Color(255,255,255,(int)(255*clamp(word3Progress * 4))));
+					g.drawString(thirdWordText, 300 + 233, 275);
 				}
 			}
 		}

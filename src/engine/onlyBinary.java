@@ -17,6 +17,7 @@ public class onlyBinary {
 	public Timer t = new Timer (5000);
 
 	public onlyBinary() {
+		
 	}
 	
 	public void addNumbers() {
@@ -32,6 +33,7 @@ public class onlyBinary {
 			b.declare((960/binaryNumbers.length) * (i), 100);
 			allBits[i] = b;
 		}
+		
 	}
 	
 	public void startGame(int difficulty) {
