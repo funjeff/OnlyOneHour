@@ -16,11 +16,14 @@ public class onlyBinary {
 	public bit[] allBits;
 	public Timer t = new Timer (5000);
 
+	public Background2 code = new Background2 (new Sprite ("resources/sprites/code backgroud.png"));
+	
 	public onlyBinary() {
 		
 	}
 	
 	public void addNumbers() {
+		
 		t.declare(460, 100);
 		t.startTimer();
 		binaryNumbers = new int[10 + difficulty];
@@ -29,8 +32,7 @@ public class onlyBinary {
 		for (int i = 0; i < binaryNumbers.length; i++) {
 			binaryNumbers[i] = rand.nextInt(2);
 			bit b = new bit(binaryNumbers[i]);
-			System.out.println(960/binaryNumbers.length * i);
-			b.declare((960/binaryNumbers.length) * (i), 100);
+			b.declare(((960/binaryNumbers.length) * (i)) + 10, 200);
 			allBits[i] = b;
 		}
 		
@@ -38,6 +40,7 @@ public class onlyBinary {
 	
 	public void startGame(int difficulty) {
 		this.difficulty = difficulty;
+		code.declare();
 		addNumbers();
 	}
 	
@@ -55,7 +58,7 @@ public class onlyBinary {
 		for (int i = 0; i < allBits.length; i++) {
 			if (allBits[i].selectedWrong) {
 				for (int j = 0; j < allBits.length; j++) {
-					allBits[j].setSprite(new Sprite("resources/sprites/zero.png"));
+					allBits[j].setSprite(new Sprite("resources/sprites/0 bit.png"));
 				}
 				isGameWon = false;
 				return true;

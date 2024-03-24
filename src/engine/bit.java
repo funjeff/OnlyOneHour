@@ -7,13 +7,12 @@ public class bit extends GameObject {
 	public bit(int value) {
 		this.val = value;
 		if (val == 0) {
-			this.setSprite(new Sprite("resources/sprites/zero.png"));
+			this.setSprite(new Sprite("resources/sprites/0 bit.png"));
 		}
 		else {
-			this.setSprite(new Sprite("resources/sprites/one.png"));
+			this.setSprite(new Sprite("resources/sprites/1 bit.png"));
 		}
 		this.useSpriteHitbox();
-		this.adjustHitboxBorders();
 	}
 	
 	@Override
@@ -23,15 +22,15 @@ public class bit extends GameObject {
 				getCursorX()/1284 <= this.getX() + this.getSprite().getWidth() &&
 				getCursorY()/721.333333333 >= this.getY() &&
 				getCursorY()/721.333333333 <= this.getY() + this.getSprite().getHeight() &&
-				this.mouseButtonClicked(0)) {
+				this.mouseButtonReleased(0)) {
 			System.out.print("OW THAT HURTS");
 			if (val == 0) {
-				this.setSprite(new Sprite("resources/sprites/one.png"));
+				this.setSprite(new Sprite("resources/sprites/1 bit.png"));
 				val = 1;
 			}
 			else {
 				selectedWrong = true;
-				this.setSprite(new Sprite("resources/sprites/zero.png"));
+				this.setSprite(new Sprite("resources/sprites/0 bit.png"));
 				val = 0;
 			}
 		}

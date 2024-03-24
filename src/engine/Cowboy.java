@@ -1,11 +1,14 @@
 package engine;
 
+import java.util.Random;
+
 public class Cowboy extends GameObject{
 	
 	int shot = 0;
 	int shootTimer = -1;
 	boolean requriesClick = false;
 	boolean shotOther = false;
+	boolean soundEff = true;
 	
 	public Cowboy (boolean color) {
 		if (color) {
@@ -42,10 +45,34 @@ public class Cowboy extends GameObject{
 	}
 	
 	public void getShot (boolean dir) {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		if (soundEff) {
+			AudioClip gun = new AudioClip("file:resources/sounds/gun" + rand.nextInt(3) + ".wav");
+			gun.play();
+			AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+			if (index == 0) {
+				ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+			}
+			else if (index == 1) {
+				ac = new AudioClip("file:resources/sounds/goodHeavensIMightDieSoon.wav");
+			}
+			else if (index == 2) {
+				ac = new AudioClip("file:resources/sounds/inDyingGetMeADoctor.wav");
+			}
+			else if (index == 3) {
+				ac = new AudioClip("file:resources/sounds/looksLikeImTheLastOneStanding.wav");
+			}
+			else if (index == 4) {
+				ac = new AudioClip("file:resources/sounds/shouldntaChallengedMe.wav");
+			}
+			ac.play();
+		}
 		if (dir) {
 			shot = 1;
 		} else {
 			shot = 2;
 		}
+		soundEff = false;
 	}
 }
