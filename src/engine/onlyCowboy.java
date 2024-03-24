@@ -31,6 +31,7 @@ public class onlyCowboy extends GameObject implements Game {
 	Grave grave1;
 	Grave grave2;
 	
+	ConditionDisplay cd;
 	
 	public onlyCowboy() {
 	}
@@ -162,7 +163,18 @@ public class onlyCowboy extends GameObject implements Game {
 		realboy1.forget();
 		realboy2.forget();
 		cowboyBack.forget();
-		t.forget();
+		if (t != null) {
+			t.forget();
+		}
+		if (grave1 != null) {
+			grave1.forget();
+		}
+		if (grave2 != null) {
+			grave2.forget();
+		}
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 	
 	public boolean isGameOver() {
@@ -219,12 +231,20 @@ public class onlyCowboy extends GameObject implements Game {
 			if (realboy1.shotOther) {
 				realboy2.getShot(true);
 				isGameWon = true;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 			
 			if (realboy2.shotOther) {
 				realboy1.getShot(false);
 				isGameWon = false;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 			

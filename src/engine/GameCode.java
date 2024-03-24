@@ -43,7 +43,12 @@ public class GameCode {
 	static AudioClip currentMusic;
 	static Game currGame;
 	
-	static String[] gameNames = {"COWBOY", "DODGE", "MINUTE", "KEY", "LEFT", "PERSON", "11111111111111", "FPS"};
+	static boolean gottenOnlyOneMinute = false;
+	
+	// Only one death is 0, only one left is 1
+	static int trolleyChoice = 0;
+	
+	static String[] gameNames = {"O CLOCK", "DODGE", "FPS", "KEY", "DEATH", "PERSON", "11111111111111", "MINUTE"};
 	static Color[] gameTransitionColors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE};
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
@@ -73,15 +78,13 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		oc.startGame(4);
 		//ot.startGame(4);
 
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-//		startNewGame (0);
-		
-		
+		startNewGame (0);
+		//ot.startGame(0);
 	}
 		
 	public static void startNewGame (int gameId) {
@@ -94,13 +97,14 @@ public class GameCode {
 				currGame = new onlyDodge();
 				break;
 			case 2:
-				currGame = new onlyTimer();
+				currGame = new onlyFPS();
 				break;
 			case 3:
 				currGame = new onlyKey();
 				break;
 			case 4:
-				currGame = new onlyTrolly();
+				int correctChoice = trolleyChoice;
+				currGame = new onlyTrolly(correctChoice);
 				break;
 			case 5:
 				currGame = new onlyPipe();
@@ -109,7 +113,7 @@ public class GameCode {
 				currGame = new onlyBinary();
 				break;
 			case 7:
-				currGame = new onlyFPS();
+				currGame = new onlyTimer();
 				break;
 		}
 		((GameObject)currGame).declare ();
@@ -128,37 +132,47 @@ public class GameCode {
 
 		ObjectHandler.callAll();
 		
-//		// Wait to sync with the music
-//		if (lastGameStartTime == 0) {
-//			if (!currentMusic.isPlaying()) {
-//				return;
-//			} else {
-//				lastGameStartTime = System.currentTimeMillis ();
-//			}
-//		}
-//		
-//		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
-//		if (elapsedTime >= 6261 && !transitionSpawned) {
-//			do {
-//				nextGameID = (int)(Math.random() * gameNames.length);
-//			} while (nextGameID == currentGameID);
-//			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 5));
-//			introAnimation.setWordColor (gameTransitionColors[currentGameID]);
-//			introAnimation.declare();
-//			transitionSpawned = true;
-//		}
-//		if (elapsedTime >= 8348) {
-//			currentGameID = nextGameID;
-//			currentMusic.stop ();
-//			currentMusic = musicClips[currentGameID];
-//			currentMusic.play ();
-//			lastGameStartTime = System.currentTimeMillis ();
-//			transitionSpawned = false;
-//			endCurrentGame();
-//			startNewGame(currentGameID);
-//		}
-//		
-//		currGame.isGameOver ();
+		// Wait to sync with the music
+		if (lastGameStartTime == 0) {
+			if (!currentMusic.isPlaying()) {
+				return;
+			} else {
+				lastGameStartTime = System.currentTimeMillis ();
+			}
+		}
+		
+		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
+		if (elapsedTime >= 6261 && !transitionSpawned) {
+			do {
+				nextGameID = (int)(Math.random() * (gottenOnlyOneMinute ? gameNames.length - 1 : gameNames.length));
+			} while (nextGameID == currentGameID);
+			if (nextGameID == 7) {
+				gottenOnlyOneMinute = true;
+			}
+			String introAnimationStr = gameNames[nextGameID];
+			if (nextGameID == 4) {
+				trolleyChoice = (int)(Math.random() * 2);
+				if (trolleyChoice == 1) {
+					introAnimationStr = "LEFT";
+				}
+			}
+			IntroAnimation introAnimation = new IntroAnimation(introAnimationStr, (int)(Math.random () * 5));
+			introAnimation.setWordColor (gameTransitionColors[currentGameID]);
+			introAnimation.declare();
+			transitionSpawned = true;
+		}
+		if (elapsedTime >= 8348) {
+			currentGameID = nextGameID;
+			currentMusic.stop ();
+			currentMusic = musicClips[currentGameID];
+			currentMusic.play ();
+			lastGameStartTime = System.currentTimeMillis ();
+			transitionSpawned = false;
+			endCurrentGame();
+			startNewGame(currentGameID);
+		}
+		
+		currGame.isGameOver ();
 //		if (!t.isStarted()) {
 //		
 //		// Wait to sync with the music
@@ -195,7 +209,6 @@ public class GameCode {
 //		if (op.isGameOver()) {
 //			op.endGame();
 //		}
-		oc.isGameOver();
 		//ot.isGameOver();
 	}
 
