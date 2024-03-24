@@ -3,6 +3,7 @@ package gameObjects;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
 import java.util.Arrays;
 import java.util.Random;
@@ -112,7 +113,7 @@ public class Maro extends GameObject {
 		}
 		
 		
-		if (keyPressed('W')) {
+		if (keyPressed('W') || keyPressed(KeyEvent.VK_SPACE)) {
 			AudioClip ac = new AudioClip("file:resources/sounds/yipperoni" + rand.nextInt(2) + ".wav");
 			ac.play();
 			if (isOnFloor) {
