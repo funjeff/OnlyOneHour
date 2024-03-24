@@ -88,7 +88,7 @@ public class GameCode {
 	
 	
 	public static void gameLoopFunc () {
-		od.isGameOver();
+		od.endGame();
 		
 		ObjectHandler.callAll();
 //		
