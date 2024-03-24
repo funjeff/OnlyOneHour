@@ -200,16 +200,19 @@ public class GameCode {
 					}
 				} else {
 					losses = losses + 1;
-					if (levelUpNum != 3) {
-						levelUpNum = levelUpNum + 1;
-					}
+					levelUpNum = levelUpNum + 1;
 					didWin = 0;
+					if (levelUpNum == 4) {
+						difficulty = difficulty - 1;
+						levelUpNum = 2;
+						didWin = 3;
+					}
 				}
 			}
 		} else {
 			currGame.isGameOver();
 		}
-		if (didWin == 2) {
+		if (didWin == 2 || didWin == 3) {
 			if (!fadeoutDir) {
 				fadeoutOpacity = fadeoutOpacity + 5;
 				if (fadeoutOpacity >= 255) {
@@ -269,9 +272,15 @@ public class GameCode {
 		if (didWin == 2 && fadeoutOpacity > 0) {
 			drawTextWithTransform("LEVEL UP!", new Color (0,200,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
 		}
+		
+		if (didWin == 3 && fadeoutOpacity > 0) {
+			System.out.println("why");
+			drawTextWithTransform("LEVEL DOWN!", new Color (200,0,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
+		}
+		
 		drawTextWithTransform("WINS " + wins, new Color (0,255,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),100,20,1,1,0);
 		drawTextWithTransform("LOSSES " + losses, new Color (255,0,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),350,20,1,1,0);
-		drawTextWithTransform("DIFFICULTY " + difficulty, new Color (0,0,255,255),new Font ("Comic Sans MS",Font.PLAIN,40),650,20,1,1,0);
+		drawTextWithTransform("DIFFICULTY " + (difficulty + 1), new Color (0,0,255,255),new Font ("Comic Sans MS",Font.PLAIN,40),650,20,1,1,0);
 		
 	}
 	
