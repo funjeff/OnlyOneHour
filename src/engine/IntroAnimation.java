@@ -57,6 +57,8 @@ public class IntroAnimation extends GameObject {
 		word1 = genText(firstWordText, f);
 		word2 = genText(secondWordText, f);
 		word3 = genText(thirdWordText, f);
+		
+		setRenderPriority(20);
 	}
 	
 	public double platFunc (double val) {

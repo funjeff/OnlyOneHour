@@ -112,6 +112,7 @@ public class GameCode {
 			currentMusic.play ();
 			lastGameStartTime = System.currentTimeMillis ();
 			transitionSpawned = false;
+			kg.endGame ();
 		}
 //		if (!t.isStarted()) {
 //			t.startTimer();
