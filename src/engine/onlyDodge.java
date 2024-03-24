@@ -20,6 +20,7 @@ public class onlyDodge {
 		Random rand = new Random();
 		direction = rand.nextInt(4);
 		monster m = new monster(direction);
+		dodger d = new dodger();
 	}
 	
 	public void startGame(int difficulty) {

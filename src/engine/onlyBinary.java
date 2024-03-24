@@ -20,7 +20,7 @@ public class onlyBinary {
 	}
 	
 	public void addNumbers() {
-		t.declare(480, 100);
+		t.declare(460, 100);
 		t.startTimer();
 		binaryNumbers = new int[10 + difficulty];
 		allBits = new bit[10 + difficulty];
