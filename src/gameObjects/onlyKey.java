@@ -3,14 +3,18 @@ package gameObjects;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.awt.event.KeyEvent;
+import java.util.Random;
 
+import engine.AudioClip;
+import java.awt.event.KeyEvent;
 import engine.GameObject;
 import engine.IntroAnimation;
 import engine.Sprite;
 import engine.Timer;
 
-public class KeyGame extends GameObject implements Game {
+public class onlyKey extends GameObject implements Game {
+	
+	static Random rand = new Random();
 
 	GameBackground keyBackground;
 	int correctKey;
@@ -32,7 +36,7 @@ public class KeyGame extends GameObject implements Game {
 	
 	ArrayList<BigText> displayTexts;
 	
-	public KeyGame () {
+	public onlyKey () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
 		allNames = new String[possibleKeys.length() + bonusKeys.length];
 		for (int i = 0; i < possibleKeys.length(); i++) {
@@ -102,7 +106,14 @@ public class KeyGame extends GameObject implements Game {
 						currText.declare(250, 300);
 						displayTexts.add (currText);
 						guessedCorrect = true;
+						AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+						ac.play();
 					} else {
+						if (!guessedCorrect) {
+							int pos = rand.nextInt(13);
+							AudioClip ac = new AudioClip("file:resources/sounds/no" + pos + ".wav");
+							ac.play();
+						}
 						currText = new BigText("Nope", Color.BLACK, 80);
 						currText.declare(Math.random() * 800, Math.random() * 500);
 						displayTexts.add (currText);

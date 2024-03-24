@@ -23,6 +23,7 @@ public class onlyBinary {
 	}
 	
 	public void addNumbers() {
+		
 		t.declare(460, 100);
 		t.startTimer();
 		binaryNumbers = new int[10 + difficulty];
