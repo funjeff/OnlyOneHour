@@ -63,7 +63,7 @@ public class onlyKey extends GameObject implements Game {
 	public void startGame (int difficulty) {
 		keyBackground = new GameBackground(new Sprite("resources/sprites/Keyboard.png"));
 		generateKey();
-		gameTimer = new Timer(difficulty * 1000, Color.black);
+		gameTimer = new Timer(5500, Color.BLACK);
 		gameTimer.declare (460, 40);
 		gameTimer.startTimer ();
 		gameTime = difficulty * 1000;
@@ -93,9 +93,10 @@ public class onlyKey extends GameObject implements Game {
 	
 	@Override
 	public void frameEvent () {
+		System.out.println(gameTimer.hasExpired());
 		if (!won && gameTimer.hasExpired() && failText == null) {
 			failText = new BigText("TIME'S UP", Color.RED, 80);
-			failText.declare(300, 270);
+			failText.declare(300, 300);
 			displayTexts.add (failText);
 		}
 		if (!guessedCorrect) {
