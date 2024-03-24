@@ -315,12 +315,20 @@ public class GameCode {
 		g.fillRect (0, 0, 960, 540);
 		ObjectHandler.renderAll();
 		
-		if (didWin == 2 && fadeoutOpacity > 0) {
-			drawTextWithTransform("LEVEL UP!", new Color (0,200,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
+		if (gameStarted) {
+			if (didWin == 2 && fadeoutOpacity > 0) {
+				drawTextWithTransform("LEVEL UP!", new Color (0,200,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
+			}
+			
+			if (didWin == 3 && fadeoutOpacity > 0) {
+				System.out.println("why");
+				drawTextWithTransform("LEVEL DOWN!", new Color (200,0,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
+			}
+			
+			drawTextWithTransform("WINS " + wins, new Color (0,255,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),100,20,1,1,0);
+			drawTextWithTransform("LOSSES " + losses, new Color (255,0,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),350,20,1,1,0);
+			drawTextWithTransform("DIFFICULTY " + (difficulty + 1), new Color (0,0,255,255),new Font ("Comic Sans MS",Font.PLAIN,40),650,20,1,1,0);
 		}
-		drawTextWithTransform("WINS " + wins, new Color (0,255,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),100,20,1,1,0);
-		drawTextWithTransform("LOSSES " + losses, new Color (255,0,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),350,20,1,1,0);
-		drawTextWithTransform("DIFFICULTY " + difficulty, new Color (0,0,255,255),new Font ("Comic Sans MS",Font.PLAIN,40),650,20,1,1,0);
 		
 	}
 	
