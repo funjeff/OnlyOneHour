@@ -14,8 +14,7 @@ public class IntroAnimation extends GameObject {
 	public static final int EFFECT_ID_WORDS_FADE = 0;
 	public static final int EFFECT_ID_WORDS_LEFT_TO_RIGHT = 1;
 	public static final int EFFECT_ID_WORDS_TOP_TO_BOTTOM = 2;
-	public static final int EFFECT_ID_WORDS_SPIRAL = 3;
-	public static final int EFFECT_ID_WORDS_STAR_WARS = 4;
+	public static final int EFFECT_ID_WORDS_STAR_WARS = 3;
 	
 	public static final int[] MS_OFFSETS = {-500, 0, 0, 0, -250};
 	
@@ -222,27 +221,26 @@ public class IntroAnimation extends GameObject {
 			drawTextWithTransform (thirdWordText, f, 480, -100 + 740 * platFunc(word3Progress), sclFunc(word3Progress), sclFunc(word3Progress), 0);
 		}
 		
-		if (effectId == EFFECT_ID_WORDS_SPIRAL) {
-			Font f = new Font ("Comic Sans MS",Font.PLAIN,60);
-			String[] texts = new String[] {firstWordText, secondWordText, thirdWordText};
-			double[] progresses = new double[] {word1Progress, word2Progress, word3Progress};
-			for (int i = 0; i < texts.length; i++) {
-				String text = texts[i];
-				double prog = progresses[i];
-				if (prog < 1) {
-					int[] centerOffset = getTextCenterOffset (text, f);
-					AffineTransform tf = new AffineTransform ();
-					tf.translate (480, 270);
-					tf.rotate (prog * 2 * Math.PI);
-					tf.translate (0, -270 * (1 - prog) * 3);
-					double x = clamp(Math.sqrt (1 - prog * prog));
-					tf.scale (x, x);
-					tf.translate (-centerOffset[0], -centerOffset[1]);
-					drawTextWithTransform (text, f, tf);
-				}
-			}
-			
-		}
+//		if (effectId == EFFECT_ID_WORDS_SPIRAL) {
+//			Font f = new Font ("Comic Sans MS",Font.PLAIN,60);
+//			String[] texts = new String[] {firstWordText, secondWordText, thirdWordText};
+//			double[] progresses = new double[] {word1Progress, word2Progress, word3Progress};
+//			for (int i = 0; i < texts.length; i++) {
+//				String text = texts[i];
+//				double prog = progresses[i];
+//				if (prog < 1) {
+//					int[] centerOffset = getTextCenterOffset (text, f);
+//					AffineTransform tf = new AffineTransform ();
+//					tf.translate (480, 270);
+//					tf.rotate (prog * 2 * Math.PI);
+//					tf.translate (0, -270 * (1 - prog) * 3);
+//					double x = clamp(Math.sqrt (1 - prog * prog));
+//					tf.scale (x, x);
+//					tf.translate (-centerOffset[0], -centerOffset[1]);
+//					drawTextWithTransform (text, f, tf);
+//				}
+//			}
+//		}
 		
 		if (effectId == EFFECT_ID_WORDS_STAR_WARS) {
 			Font f = new Font ("Comic Sans MS",Font.PLAIN,60);

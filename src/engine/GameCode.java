@@ -96,7 +96,7 @@ public class GameCode {
 			do {
 				nextGameID = (int)(Math.random() * gameNames.length);
 			} while (nextGameID == currentGameID);
-			new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 5)).declare();
+			new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4)).declare();
 			transitionSpawned = true;
 		}
 		if (elapsedTime >= 8348) {
