@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.util.Arrays;
 
+import engine.AudioClip;
 import engine.GameObject;
 import engine.RenderLoop;
 import engine.Sprite;
@@ -132,6 +133,10 @@ public class Maro extends GameObject {
 		
 		// Falling
 		if (getY () > 540 && !dead) {
+			if (!died) {
+				AudioClip ac = new AudioClip("file:resources/sounds/maroFalling.wav");
+				ac.play();
+			}
 			died = true;
 		}
 	}

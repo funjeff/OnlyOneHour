@@ -77,6 +77,8 @@ public class Trolly extends GameObject{
 		
 		if (this.mouseButtonReleased(0)) {
 			if (!reachedChoice) {
+				AudioClip ac = new AudioClip("file:resources/sounds/leverSwitchNoise.wav");
+				ac.play();
 				path = !path;
 				indicatior.setDir(path);
 			}
