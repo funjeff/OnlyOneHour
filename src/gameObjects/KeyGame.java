@@ -5,7 +5,9 @@ import java.awt.Color;
 import com.sun.glass.events.KeyEvent;
 
 import engine.GameObject;
+import engine.IntroAnimation;
 import engine.Sprite;
+import engine.Timer;
 
 public class KeyGame extends GameObject implements Game {
 
@@ -21,7 +23,11 @@ public class KeyGame extends GameObject implements Game {
 	int[] allKeys;
 	String[] allNames;
 	
+	long gameTime;
+	Timer gameTimer;
+	
 	BigText currText = null;
+	BigText timerText = null;
 	boolean guessedCorrect = false;
 	
 	public KeyGame () {
@@ -48,6 +54,13 @@ public class KeyGame extends GameObject implements Game {
 	public void startGame (int difficulty) {
 		keyBackground = new GameBackground(new Sprite("resources/sprites/keygamebg.png"));
 		generateKey();
+		gameTimer = new Timer(difficulty * 1000);
+		gameTimer.declare (200, 200);
+		gameTimer.startTimer ();
+		gameTime = difficulty * 1000;
+		IntroAnimation anim = new IntroAnimation("LEFT", IntroAnimation.EFFECT_ID_WORDS_STAR_WARS);
+		anim.declare (300, 300);
+		
 	}
 
 	@Override
@@ -86,6 +99,8 @@ public class KeyGame extends GameObject implements Game {
 				}
 			}
 		}
+		
+		
 	}
 	
 	@Override

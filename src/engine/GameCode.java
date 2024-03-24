@@ -30,7 +30,6 @@ public class GameCode {
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
-	
 	public static void testBitch () {
 		
 		
