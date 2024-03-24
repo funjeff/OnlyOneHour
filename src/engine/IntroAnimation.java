@@ -20,7 +20,7 @@ public class IntroAnimation extends GameObject {
 	
 	public static final int[] MS_OFFSETS = {-500, 0, 0, 0, -250};
 	
-	private static final BufferedImage dummyImg = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
+	public static final BufferedImage dummyImg = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
 	
 	int effectId;
 	

@@ -2,10 +2,14 @@ package engine;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +43,14 @@ public class GameCode {
 	static int currentGameID = 0;
 	static int nextGameID = 0;
 	static boolean transitionSpawned = false;
+	static int difficulty = 0;
+	static int levelUpNum = 1;
+	static int didWin = -1;
+	static int fadeoutOpacity = 100;
+	static boolean fadeoutDir = false; 
+	static int wins = 0;
+	static int losses = 0;
+	
 	
 	static AudioClip currentMusic;
 	static Game currGame;
@@ -117,7 +129,7 @@ public class GameCode {
 				break;
 		}
 		((GameObject)currGame).declare ();
-		currGame.startGame (0);
+		currGame.startGame (difficulty);
 		
 	}
 	
@@ -168,11 +180,47 @@ public class GameCode {
 			currentMusic.play ();
 			lastGameStartTime = System.currentTimeMillis ();
 			transitionSpawned = false;
+			fadeoutOpacity = 100;
 			endCurrentGame();
+			didWin = -1;
+			fadeoutDir = false; 
 			startNewGame(currentGameID);
 		}
 		
-		currGame.isGameOver ();
+		if (didWin == -1) {
+			if (currGame.isGameOver()) {
+				if (currGame.wasGameWon()) {
+					didWin = 1;
+					wins = wins + 1;
+					levelUpNum = levelUpNum - 1;
+					if (levelUpNum == 0 && difficulty != 9) {
+						levelUpNum = 1;
+						difficulty = difficulty + 1;
+						didWin = 2;
+					}
+				} else {
+					losses = losses + 1;
+					if (levelUpNum != 3) {
+						levelUpNum = levelUpNum + 1;
+					}
+					didWin = 0;
+				}
+			}
+		} else {
+			currGame.isGameOver();
+		}
+		if (didWin == 2) {
+			if (!fadeoutDir) {
+				fadeoutOpacity = fadeoutOpacity + 5;
+				if (fadeoutOpacity >= 255) {
+					fadeoutOpacity = 255;
+					fadeoutDir = true; 
+				}
+			} else {
+				fadeoutOpacity = fadeoutOpacity - 5;
+			}
+			
+		}
 //		if (!t.isStarted()) {
 //		
 //		// Wait to sync with the music
@@ -217,6 +265,47 @@ public class GameCode {
 		g.setColor (Color.DARK_GRAY);
 		g.fillRect (0, 0, 960, 540);
 		ObjectHandler.renderAll();
+		
+		if (didWin == 2 && fadeoutOpacity > 0) {
+			drawTextWithTransform("LEVEL UP!", new Color (0,200,0,fadeoutOpacity),new Font ("Comic Sans MS",Font.PLAIN,40),280,100,2,2,0);
+		}
+		drawTextWithTransform("WINS " + wins, new Color (0,255,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),100,20,1,1,0);
+		drawTextWithTransform("LOSSES " + losses, new Color (255,0,0,255),new Font ("Comic Sans MS",Font.PLAIN,40),350,20,1,1,0);
+		drawTextWithTransform("DIFFICULTY " + difficulty, new Color (0,0,255,255),new Font ("Comic Sans MS",Font.PLAIN,40),650,20,1,1,0);
+		
+	}
+	
+	public static int[] getTextCenterOffset (String text, Font f) {
+		Graphics2D metricsGraphics = (Graphics2D)IntroAnimation.dummyImg.getGraphics ();
+		metricsGraphics.setFont (f);
+		FontMetrics fm = metricsGraphics.getFontMetrics ();
+		int textWidth = fm.stringWidth (text) + 4;
+		int textHeight = fm.getHeight () + 4;
+		int fontAscent = fm.getAscent();
+		int tlX = 0;
+		int tlY = fontAscent;
+		return new int[] {tlX + textWidth / 2, -tlY + textHeight / 2};
+	}
+	
+	public static void drawTextWithTransform (String text, Color c, Font f, double x, double y, double sclX, double sclY, double theta) {
+		
+		if (sclX != 0 && sclY != 0) {
+			int[] centerOffset = getTextCenterOffset (text, f);
+			
+			AffineTransform tf = new AffineTransform ();
+			tf.translate (x, y);
+			tf.rotate (theta);
+			tf.scale (sclX, sclY);
+			tf.translate (-centerOffset[0], -centerOffset[1]);
+			Graphics2D g = (Graphics2D)RenderLoop.wind.getBufferGraphics();
+			
+			g.setColor(c);
+			g.setTransform (tf);
+			g.setFont (f);
+			g.drawString (text, 0, 0);
+			g.setTransform (new AffineTransform ());
+		}
+		
 	}
 	
 	public static void beforeRender() {
