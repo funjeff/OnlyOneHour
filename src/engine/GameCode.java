@@ -30,6 +30,7 @@ public class GameCode {
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
+	static boolean quickTest = false;
 	public static void testBitch () {
 		
 		
@@ -63,8 +64,13 @@ public class GameCode {
 //			op.endGame();
 //		}
 //		oc.isGameOver();
-		ot.isGameOver();
-	}
+		if (!quickTest) {
+			if (ot.isGameOver()) {
+				ot.endGame();
+				quickTest = true;
+			}
+		}
+}
 	
 	public static void renderFunc () {
 		ObjectHandler.renderAll();
