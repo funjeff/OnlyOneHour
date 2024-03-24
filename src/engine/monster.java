@@ -7,11 +7,13 @@ public class monster extends GameObject{
 	public int dir;
 	public int xPos;
 	public int yPos;
+	static Random rand = new Random();
 	
 	public double speed = 1.0;
 	boolean charge = false;
 	boolean usesU = false;
 	int flipTime =2;
+	boolean hasScreamed = false;
 	
 	Sprite u1 = new Sprite("resources/sprites/monsteru.png");
 	Sprite u2 = new Sprite("resources/sprites/monster2u.png");
@@ -89,6 +91,24 @@ public class monster extends GameObject{
 			else {
 				yPos -= 1*speed;
 			}
+		}
+		if (charge && !hasScreamed) {
+			int index = rand.nextInt(5);
+			AudioClip ac = new AudioClip("file:resources/sounds/comingThrough1.wav");
+			if (index == 0) {
+				ac = new AudioClip("file:resources/sounds/comingThrough2.wav");
+			}
+			else if (index == 1) {
+				ac = new AudioClip("file:resources/sounds/haiyah.wav");
+			}
+			else if (index == 2) {
+				ac = new AudioClip("file:resources/sounds/heuh.wav");
+			}
+			else if (index == 3) {
+				ac = new AudioClip("file:resources/sounds/waaowaaowaaaaah.wav");
+			}
+			ac.play();
+			hasScreamed = true;
 		}
 		this.setX(xPos);
 		this.setY(yPos);

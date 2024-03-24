@@ -24,13 +24,13 @@ public class onlyBinary extends GameObject implements Game {
 	
 	public void addNumbers() {
 		
-		int index = rand.nextInt(7);
+		int index = rand.nextInt(6);
 		AudioClip ac = new AudioClip("file:resources/sounds/yeahIGotThis.wav");
 		if (index == 0) {
 			ac = new AudioClip("file:resources/sounds/conspiracyTheory.wav");
 		}
 		else if (index == 1) {
-			ac = new AudioClip("file:resources/sounds/redBullEmptyCan.wav");
+			ac = new AudioClip("file:resources/sounds/colonelSneakingAround.wav");
 		}
 		else if (index == 2) {
 			ac = new AudioClip("file:resources/sounds/justAltF4Already.wav");
@@ -40,9 +40,6 @@ public class onlyBinary extends GameObject implements Game {
 		}
 		else if (index == 4) {
 			ac = new AudioClip("file:resources/sounds/hackingIntoTheMainframe.wav");
-		}
-		else if (index == 5) {
-			ac = new AudioClip("file:resources/sounds/colonelSneakingAround.wav");
 		}
 		ac.play();
 		

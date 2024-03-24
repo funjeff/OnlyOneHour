@@ -5,6 +5,9 @@ import java.util.Random;
 import gameObjects.Game;
 
 public class onlyDodge extends GameObject implements Game {
+	
+	static Random rand = new Random();
+	
 	public static void main(String[] args) {
 		onlyBinary ob = new onlyBinary();
 		ob.startGame(0);
@@ -27,6 +30,15 @@ public class onlyDodge extends GameObject implements Game {
 	}
 	
 	public void setTheScene() {
+		int index = rand.nextInt(3);
+		AudioClip ac = new AudioClip("file:resources/sounds/ImHungry.wav");
+		if (index == 0) {
+			ac = new AudioClip("file:resources/sounds/ImGonnaEatYou.wav");
+		}
+		else if (index == 1) {
+			ac = new AudioClip("file:resources/sounds/NOMNOMNOM.wav");
+		}
+		ac.play();
 		Random rand = new Random();
 		direction = rand.nextInt(4);
 		m = new monster(direction);
