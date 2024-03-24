@@ -35,15 +35,15 @@ public class InputManager {
 	/**
 	 * The buffer used for storing the keys which are currently pressed down
 	 */
-	private boolean[] keysDown = new boolean[256];
+	private boolean[] keysDown = new boolean[1024];
 	/**
 	 * The buffer used for storing the keys which were recently pressed down
 	 */
-	private boolean[] keysPressed = new boolean[256];
+	private boolean[] keysPressed = new boolean[1024];
 	/**
 	 * The buffer used for storing they keys which were recently released
 	 */
-	private boolean[] keysReleased = new boolean[256];
+	private boolean[] keysReleased = new boolean[1024];
 	/**
 	 * An ordered list of recent keyEvents
 	 */
@@ -147,16 +147,20 @@ public class InputManager {
 
 		@Override
 		public void keyPressed (KeyEvent e) {
-			keysPressed [e.getKeyCode ()] = true;
-			keysDown [e.getKeyCode ()] = true;
-			keyEvents.add (e);
+			if (e.getKeyCode () <= keysPressed.length) {
+				keysPressed [e.getKeyCode ()] = true;
+				keysDown [e.getKeyCode ()] = true;
+				keyEvents.add (e);
+			}
 		}
 
 		@Override
 		public void keyReleased (KeyEvent e) {
-			keysReleased [e.getKeyCode ()] = true;
-			keysDown [e.getKeyCode ()] = false;
-			keyEvents.add (e);
+			if (e.getKeyCode () <= keysPressed.length) {
+				keysReleased [e.getKeyCode ()] = true;
+				keysDown [e.getKeyCode ()] = false;
+				keyEvents.add (e);
+			}
 		}
 
 		@Override

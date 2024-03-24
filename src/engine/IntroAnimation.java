@@ -282,6 +282,8 @@ public class IntroAnimation extends GameObject {
 			g.setColor (new Color(0, 0, 0));
 			if (funny >= 95) {
 				g.drawImage (new Sprite("resources/sprites/whopper ad.png").getFrame (0), 0, 0, null);
+			} else if (funny >= 80 && thirdWordText.equals ("PERSON")) {
+				g.drawImage (new Sprite("resources/sprites/Turtle.png").getFrame (0), 0, 0, null);
 			} else {
 				g.fillRect (0, 0, 960, 540);
 			}

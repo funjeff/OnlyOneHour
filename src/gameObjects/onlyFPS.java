@@ -17,7 +17,7 @@ public class onlyFPS extends GameObject implements Game {
 	
 	@Override
 	public void startGame (int difficulty) {
-		int index = rand.nextInt(11);
+		int index = rand.nextInt(10);
 		AudioClip ac = new AudioClip("file:resources/sounds/ahYesAnotherPowerStarToMyCollection.wav");
 		if (index == 0) {
 			ac = new AudioClip("file:resources/sounds/dudeThisGuyIsLiterallyStompingGoombas.wav");
@@ -32,7 +32,7 @@ public class onlyFPS extends GameObject implements Game {
 			ac = new AudioClip("file:resources/sounds/iLikeChiliDogs.wav");
 		}
 		else if (index == 4) {
-			ac = new AudioClip("file:resources/sounds/imGonnaBeatLevelAndGetTheYoshEgg.wav");
+			ac = new AudioClip("file:resources/sounds/imGonnaBeatTheLevelAndGetTheYoshEgg.wav");
 		}
 		else if (index == 5) {
 			ac = new AudioClip("file:resources/sounds/marioWearsOverallsRight.wav");
@@ -44,10 +44,7 @@ public class onlyFPS extends GameObject implements Game {
 			ac = new AudioClip("file:resources/sounds/superMaro.wav");
 		}
 		else if (index == 8) {
-			ac = new AudioClip("file:resources/sounds/yipperoni.wav");
-		}
-		else if (index == 9) {
-			ac = new AudioClip("file:resources/sounds/yipperoni2.wav");
+			ac = new AudioClip("file:resources/sounds/letUsCommence.wav");
 		}
 		ac.play();
 		bg = new GameBackground(new Sprite("resources/sprites/maro.png"));

@@ -62,7 +62,6 @@ public class onlyKey extends GameObject implements Game {
 		int randomKeyIndex = (int)(Math.random() * sampleCount);
 		correctKey = allKeys[randomKeyIndex];
 		correctKeyStr = allNames[randomKeyIndex];
-		System.out.println(correctKeyStr);
 	}
 	
 	@Override
@@ -108,10 +107,12 @@ public class onlyKey extends GameObject implements Game {
 	
 	@Override
 	public void frameEvent () {
-		System.out.println(gameTimer.hasExpired());
 		if (!won && gameTimer.hasExpired() && failText == null) {
-			failText = new BigText("TIME'S UP", Color.RED, 80);
-			failText.declare(300, 300);
+			failText = new BigText("The key was:", Color.RED, 80);
+			failText.declare(250, 220);
+			displayTexts.add (failText);
+			failText = new BigText(correctKeyStr, Color.RED, 80);
+			failText.declare(250, 300);
 			displayTexts.add (failText);
 		}
 		if (!guessedCorrect) {
@@ -128,12 +129,10 @@ public class onlyKey extends GameObject implements Game {
 							currText.declare(250, 300);
 							displayTexts.add (currText);
 							guessedCorrect = true;
-							AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
-							ac.play();
 						}
 					} else {
 						if (!guessedCorrect) {
-							int pos = rand.nextInt(13);
+							int pos = rand.nextInt(19);
 							AudioClip ac = new AudioClip("file:resources/sounds/no" + pos + ".wav");
 							ac.play();
 						}

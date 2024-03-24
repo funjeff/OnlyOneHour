@@ -95,7 +95,7 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-		startNewGame (2);
+		startNewGame ((int)(Math.random() * 4));
 		//ot.startGame(0);
 	}
 		
