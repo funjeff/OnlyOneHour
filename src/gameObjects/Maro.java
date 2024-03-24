@@ -44,6 +44,9 @@ public class Maro extends GameObject {
 	int framenum = 0;
 	Sprite maroA = new Sprite ("resources/sprites/super maro.png");
 	Sprite maroB = new Sprite ("resources/sprites/supest maro.png");
+	Sprite jesus = new Sprite ("resources/sprites/poster.png");
+	
+	AudioClip sonny = new AudioClip("file:resources/sounds/alrightSonny.wav");
 	
 	public Maro (int difficulty) {
 		this.declare (100, 100);
@@ -160,6 +163,10 @@ public class Maro extends GameObject {
 				framenum = (framenum + 1) % 2;
 				Sprite[] maros = new Sprite[] {maroA, maroB};
 				setSprite (maros[framenum]);
+				if (framenum == 1 && Math.random() < .03) {
+					setSprite (jesus);
+					sonny.play ();
+				}
 				moved = false;
 			} else {
 				setSprite (maroA);
