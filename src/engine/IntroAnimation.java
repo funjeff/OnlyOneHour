@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,6 +22,8 @@ public class IntroAnimation extends GameObject {
 	private static final BufferedImage dummyImg = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
 	
 	int effectId;
+	
+	Color wordColor = Color.WHITE;
 	
 	String firstWordText = "ONLY";
 	String secondWordText = "ONE";
@@ -106,7 +109,7 @@ public class IntroAnimation extends GameObject {
 		int fontAscent = fm.getAscent();
 		BufferedImage img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = (Graphics2D)img.getGraphics ();
-		g.setColor(Color.WHITE);
+		g.setColor(wordColor);
 		g.setFont (f);
 		g.drawString (text, 0, fontAscent);
 		return img;
@@ -124,6 +127,7 @@ public class IntroAnimation extends GameObject {
 			tf.translate (-centerOffset[0], -centerOffset[1]);
 			Graphics2D g = (Graphics2D)RenderLoop.wind.getBufferGraphics();
 			
+			g.setColor(wordColor);
 			g.setTransform (tf);
 			g.setFont (f);
 			g.drawString (text, 0, 0);
@@ -135,7 +139,8 @@ public class IntroAnimation extends GameObject {
 	public void drawTextWithTransform (String text, Font f, AffineTransform tf) {
 		
 		Graphics2D g = (Graphics2D)RenderLoop.wind.getBufferGraphics();
-		
+
+		g.setColor(wordColor);
 		g.setTransform (tf);
 		g.setFont (f);
 		g.drawString (text, 0, 0);
@@ -155,6 +160,7 @@ public class IntroAnimation extends GameObject {
 			Graphics2D g = (Graphics2D)RenderLoop.wind.getBufferGraphics();
 			AffineTransform tf2 = AffineTransform.getTranslateInstance (x, y);
 			
+			g.setColor(wordColor);
 			g.setTransform (tf);
 			g.drawImage (img, 0, 0, null);
 			g.setTransform (new AffineTransform ());
@@ -190,18 +196,18 @@ public class IntroAnimation extends GameObject {
 	@Override
 	public void draw () {
 		
-		Graphics g = RenderLoop.wind.getBufferGraphics();
+		Graphics2D g = (Graphics2D)RenderLoop.wind.getBufferGraphics();
 		
 		if (effectId == EFFECT_ID_WORDS_FADE) {
-			g.setColor(new Color(255,255,255,(int)(255*word1Progress)));
+			g.setColor(new Color(wordColor.getRed (), wordColor.getGreen (), wordColor.getBlue (), (int)(255*word1Progress)));
 			g.setFont(new Font ("Comic Sans MS",Font.PLAIN,40));
 			g.drawString(firstWordText, 300, 275);
 			
 			if (word1Progress == 1) {
-				g.setColor(new Color(255,255,255,(int)(255*word2Progress)));
+				g.setColor(new Color(wordColor.getRed (), wordColor.getGreen (), wordColor.getBlue (), (int)(255*word2Progress)));
 				g.drawString(secondWordText, 300 + 125, 275);
 				if (word2Progress == 1) {
-					g.setColor(new Color(255,255,255,(int)(255*clamp(word3Progress * 4))));
+					g.setColor(new Color(wordColor.getRed (), wordColor.getGreen (), wordColor.getBlue (), (int)(255*clamp(word3Progress * 4))));
 					g.drawString(thirdWordText, 300 + 233, 275);
 				}
 			}
@@ -250,12 +256,22 @@ public class IntroAnimation extends GameObject {
 		}
 		
 		if (currentFade != 0) {
-			g.setColor (new Color(0, 0, 0, (int)(255 * currentFade)));
-			g.fillRect (0, 0, 960, 540);
+			AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)currentFade);
+			g.setComposite (ac);
+			g.setColor (new Color(0, 0, 0));
+			if (effectId == EFFECT_ID_WORDS_FADE) {
+				g.drawImage (new Sprite("resources/sprites/whopper ad.png").getFrame (0), 0, 0, null);
+			} else {
+				g.fillRect (0, 0, 960, 540);
+			}
 		}
 		
 		int timeElapsed = (int)(System.currentTimeMillis () - startTime) / 1;
 
+	}
+	
+	public void setWordColor (Color c) {
+		this.wordColor = c;
 	}
 	
 	public void restartAnimation () {

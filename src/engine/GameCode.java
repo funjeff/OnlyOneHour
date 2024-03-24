@@ -32,6 +32,7 @@ public class GameCode {
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
+	static KeyGame kg = new KeyGame();
 	
 	static long lastGameStartTime = 0;
 	static int currentGameID = 0;
@@ -41,6 +42,7 @@ public class GameCode {
 	static AudioClip currentMusic;
 	
 	static String[] gameNames = {"COWBOY", "DODGE", "DOLLAR", "KEY", "LIFE", "PERSON", "11111111111111"};
+	static Color[] gameTransitionColors = {Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE};
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
 			new AudioClip("file:resources/music/1_dodge.wav"),
@@ -74,6 +76,8 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
+		kg.declare ();
+		kg.startGame (4);
 	}
 		
 	
@@ -96,7 +100,9 @@ public class GameCode {
 			do {
 				nextGameID = (int)(Math.random() * gameNames.length);
 			} while (nextGameID == currentGameID);
-			new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4)).declare();
+			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
+			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
+			introAnimation.declare();
 			transitionSpawned = true;
 		}
 		if (elapsedTime >= 8348) {
