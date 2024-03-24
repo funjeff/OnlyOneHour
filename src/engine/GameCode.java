@@ -70,20 +70,22 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		//oc.startGame(4);
+		ob.startGame(4);
 		//ot.startGame(4);
 
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-		kg.declare ();
-		kg.startGame (4);
+//		kg.declare();
+//		kg.startGame (4);
 	}
 		
 	
 	
 	public static void gameLoopFunc () {
+//		kg.isGameOver();
 //		op.isGameOver();
+		ob.isGameOver();
 		ObjectHandler.callAll();
 		
 		// Wait to sync with the music
