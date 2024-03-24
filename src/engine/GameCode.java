@@ -41,7 +41,12 @@ public class GameCode {
 	static AudioClip currentMusic;
 	static Game currGame;
 	
-	static String[] gameNames = {"COWBOY", "DODGE", "MINUTE", "KEY", "LEFT", "PERSON", "11111111111111", "FPS"};
+	static boolean gottenOnlyOneMinute = false;
+	
+	// Only one death is 0, only one left is 1
+	static int trolleyChoice = 0;
+	
+	static String[] gameNames = {"COWBOY", "DODGE", "FPS", "KEY", "DEATH", "PERSON", "11111111111111", "MINUTE"};
 	static Color[] gameTransitionColors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE};
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
@@ -91,13 +96,14 @@ public class GameCode {
 				currGame = new onlyDodge();
 				break;
 			case 2:
-				currGame = new onlyTimer();
+				currGame = new onlyFPS();
 				break;
 			case 3:
 				currGame = new onlyKey();
 				break;
 			case 4:
-				currGame = new onlyTrolly();
+				int correctChoice = trolleyChoice;
+				currGame = new onlyTrolly(correctChoice);
 				break;
 			case 5:
 				currGame = new onlyPipe();
@@ -106,7 +112,7 @@ public class GameCode {
 				currGame = new onlyBinary();
 				break;
 			case 7:
-				currGame = new onlyFPS();
+				currGame = new onlyTimer();
 				break;
 		}
 		((GameObject)currGame).declare ();
@@ -137,9 +143,19 @@ public class GameCode {
 		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
 		if (elapsedTime >= 6261 && !transitionSpawned) {
 			do {
-				nextGameID = (int)(Math.random() * gameNames.length);
+				nextGameID = (int)(Math.random() * (gottenOnlyOneMinute ? gameNames.length - 1 : gameNames.length));
 			} while (nextGameID == currentGameID);
-			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 5));
+			if (nextGameID == 7) {
+				gottenOnlyOneMinute = true;
+			}
+			String introAnimationStr = gameNames[nextGameID];
+			if (nextGameID == 4) {
+				trolleyChoice = (int)(Math.random() * 2);
+				if (trolleyChoice == 1) {
+					introAnimationStr = "LEFT";
+				}
+			}
+			IntroAnimation introAnimation = new IntroAnimation(introAnimationStr, (int)(Math.random () * 5));
 			introAnimation.setWordColor (gameTransitionColors[currentGameID]);
 			introAnimation.declare();
 			transitionSpawned = true;

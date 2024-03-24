@@ -19,8 +19,11 @@ public class onlyTrolly extends GameObject implements Game {
 	Trapped5 trappedGroup = new Trapped5();
 	Trapped1 trappedSolo = new Trapped1();
 	
+	int correctChoice = 0;
 	
-	public onlyTrolly() {
+	
+	public onlyTrolly(int correctChoice) {
+		this.correctChoice = 0;
 	}
 	
 	public void setTheScene() {
