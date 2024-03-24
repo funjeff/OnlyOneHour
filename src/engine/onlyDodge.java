@@ -2,7 +2,9 @@ package engine;
 
 import java.util.Random;
 
-public class onlyDodge {
+import gameObjects.Game;
+
+public class onlyDodge extends GameObject implements Game {
 	public static void main(String[] args) {
 		onlyBinary ob = new onlyBinary();
 		ob.startGame(0);

@@ -2,12 +2,10 @@ package engine;
 
 import java.util.Random;
 
+import gameObjects.Game;
 
-public class onlyBinary {
-	public static void main(String[] args) {
-		onlyBinary ob = new onlyBinary();
-		ob.startGame(0);
-	}
+
+public class onlyBinary extends GameObject implements Game {
 	
 	public int difficulty;
 	public int[] binaryNumbers;
@@ -48,6 +46,7 @@ public class onlyBinary {
 		for (int j = 0; j < allBits.length; j++) {
 			allBits[j].forget();
 		}
+		code.forget ();
 	}
 	
 	public boolean isGameOver() {

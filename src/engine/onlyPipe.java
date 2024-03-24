@@ -2,7 +2,9 @@ package engine;
 
 import java.util.Random;
 
-public class onlyPipe {
+import gameObjects.Game;
+
+public class onlyPipe extends GameObject implements Game {
 	
 	public int difficulty;
 	public boolean isGameWon = false;
