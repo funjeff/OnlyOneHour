@@ -26,9 +26,9 @@ public class IntroAnimation extends GameObject {
 	
 	Color wordColor = Color.WHITE;
 	
-	String firstWordText = "ONLY";
-	String secondWordText = "ONE";
-	String thirdWordText = "HOUR";
+	public String firstWordText = "ONLY";
+	public String secondWordText = "ONE";
+	public String thirdWordText = "HOUR";
 	
 	BufferedImage word1;
 	BufferedImage word2;

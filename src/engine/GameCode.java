@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 import gameObjects.onlyKey;
 import gameObjects.Game;
+import gameObjects.TitleScreen;
 import gameObjects.onlyFPS;
 import map.Room;
 
@@ -34,7 +35,10 @@ public class GameCode {
 //	static KeyGame kg = new KeyGame();
 	
 	
-	static onlyCowboy oc = new onlyCowboy ();
+	static TitleScreen titleScreen;
+	static boolean gameStarted = false;
+	static long titleMusicStartTime = 0;
+	
 	static long lastGameStartTime = 0;
 	static int currentGameID = 0;
 	static int nextGameID = 0;
@@ -50,6 +54,8 @@ public class GameCode {
 	
 	static String[] gameNames = {"O CLOCK", "DODGE", "FPS", "KEY", "DEATH", "PERSON", "11111111111111", "MINUTE"};
 	static Color[] gameTransitionColors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE};
+	static AudioClip titleMusic1 = new AudioClip("file:resources/music/Menu_Theme.wav");
+	static AudioClip titleMusic2 = new AudioClip("file:resources/music/Menu_Theme.wav");
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
 			new AudioClip("file:resources/music/1_dodge.wav"),
@@ -81,9 +87,13 @@ public class GameCode {
 		//ot.startGame(4);
 
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
-		currentMusic = musicClips[0];
+		titleScreen = new TitleScreen();
+		titleScreen.declare ();
+		currentMusic = titleMusic1;
 		currentMusic.play ();
-		startNewGame ((int)(Math.random() * 4));
+		//currentMusic.play ();
+		
+		//startNewGame ((int)(Math.random() * 4));
 		//ot.startGame(0);
 	}
 		
@@ -132,47 +142,80 @@ public class GameCode {
 
 		ObjectHandler.callAll();
 		
-		// Wait to sync with the music
-		if (lastGameStartTime == 0) {
-			if (!currentMusic.isPlaying()) {
-				return;
+		if (!gameStarted) {
+			if (titleMusicStartTime == 0) {
+				if (currentMusic.isLoaded () && currentMusic.isPlaying ()) {
+					titleMusicStartTime = System.currentTimeMillis ();
+				}
 			} else {
-				lastGameStartTime = System.currentTimeMillis ();
-			}
-		}
-		
-		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
-		if (elapsedTime >= 6261 && !transitionSpawned) {
-			do {
-				nextGameID = (int)(Math.random() * (gottenOnlyOneMinute ? gameNames.length - 1 : gameNames.length));
-			} while (nextGameID == currentGameID);
-			if (nextGameID == 7) {
-				gottenOnlyOneMinute = true;
-			}
-			String introAnimationStr = gameNames[nextGameID];
-			if (nextGameID == 4) {
-				trolleyChoice = (int)(Math.random() * 2);
-				if (trolleyChoice == 1) {
-					introAnimationStr = "LEFT";
+				long timeElapsed = System.currentTimeMillis () - titleMusicStartTime;
+				titleScreen.currLoopTime = (int)timeElapsed;
+				if (timeElapsed >= 8347) {
+					if (titleScreen.weGoin) {
+						titleMusic1.stop ();
+						titleMusic2.stop ();
+						int gameToPlay = (int)(Math.random() * 4);
+						currentMusic = musicClips[gameToPlay];
+						currentMusic.play ();
+						startNewGame (gameToPlay);
+						titleScreen.delete ();
+					} else {
+						if (titleMusic1.isPlaying()) {
+							currentMusic = titleMusic2;
+							titleMusic2.play ();
+							titleMusic1.stop ();
+						} else {
+							currentMusic = titleMusic1;
+							titleMusic1.play ();
+							titleMusic2.stop ();
+						}
+					}
+					titleMusicStartTime = System.currentTimeMillis ();
 				}
 			}
-			IntroAnimation introAnimation = new IntroAnimation(introAnimationStr, (int)(Math.random () * 5));
-			introAnimation.setWordColor (gameTransitionColors[currentGameID]);
-			introAnimation.declare();
-			transitionSpawned = true;
+		} else {
+			// Wait to sync with the music
+			if (lastGameStartTime == 0) {
+				if (!currentMusic.isPlaying()) {
+					return;
+				} else {
+					lastGameStartTime = System.currentTimeMillis ();
+				}
+			}
+			
+			long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
+			if (elapsedTime >= 6261 && !transitionSpawned) {
+				do {
+					nextGameID = (int)(Math.random() * (gottenOnlyOneMinute ? gameNames.length - 1 : gameNames.length));
+				} while (nextGameID == currentGameID);
+				if (nextGameID == 7) {
+					gottenOnlyOneMinute = true;
+				}
+				String introAnimationStr = gameNames[nextGameID];
+				if (nextGameID == 4) {
+					trolleyChoice = (int)(Math.random() * 2);
+					if (trolleyChoice == 1) {
+						introAnimationStr = "LEFT";
+					}
+				}
+				IntroAnimation introAnimation = new IntroAnimation(introAnimationStr, (int)(Math.random () * 5));
+				introAnimation.setWordColor (gameTransitionColors[currentGameID]);
+				introAnimation.declare();
+				transitionSpawned = true;
+			}
+			if (elapsedTime >= 8348) {
+				currentGameID = nextGameID;
+				currentMusic.stop ();
+				currentMusic = musicClips[currentGameID];
+				currentMusic.play ();
+				lastGameStartTime = System.currentTimeMillis ();
+				transitionSpawned = false;
+				endCurrentGame();
+				startNewGame(currentGameID);
+			}
+			
+			currGame.isGameOver ();
 		}
-		if (elapsedTime >= 8348) {
-			currentGameID = nextGameID;
-			currentMusic.stop ();
-			currentMusic = musicClips[currentGameID];
-			currentMusic.play ();
-			lastGameStartTime = System.currentTimeMillis ();
-			transitionSpawned = false;
-			endCurrentGame();
-			startNewGame(currentGameID);
-		}
-		
-		currGame.isGameOver ();
 //		if (!t.isStarted()) {
 //		
 //		// Wait to sync with the music
