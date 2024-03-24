@@ -28,6 +28,8 @@ public class onlyTrolly {
 		trappedGroup.declare(580, 30);
 		trappedSolo.declare(490,190);
 		troll.setDrawRotation(-.1);
+		
+		troll.speed = 2.0 + (difficulty * .4);
 	}
 	
 	public void startGame(int difficulty) {
@@ -44,6 +46,8 @@ public class onlyTrolly {
 		isGameWon = false;
 		path = true;
 		nextEplosion = 393;
+		
+		
 		
 		ArrayList <GameObject> blood = ObjectHandler.getObjectsByName("BloodDroplet");
 		for (int i = 0; i < blood.size(); i = i) {

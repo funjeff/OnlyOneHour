@@ -33,6 +33,7 @@ public class GameCode {
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
 	static onlyPipe op = new onlyPipe();
+	static onlyDodge od = new onlyDodge();
 //	static KeyGame kg = new KeyGame();
 	
 	static long lastGameStartTime = 0;
@@ -78,7 +79,8 @@ public class GameCode {
 		currentMusic = musicClips[0];
 		currentMusic.play ();
 		
-		ob.startGame(0);
+		//ot.startGame(0);
+		od.startGame(0);
 //		kg.declare ();
 //		kg.startGame (4);
 	}
@@ -86,7 +88,7 @@ public class GameCode {
 	
 	
 	public static void gameLoopFunc () {
-		ob.isGameOver();
+		od.isGameOver();
 		
 		ObjectHandler.callAll();
 //		

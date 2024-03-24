@@ -9,7 +9,7 @@ public class Trolly extends GameObject{
 	
 	LeverGuy guy;
 	
-	double speed = 1.0;
+	double speed = 2.0;
 	
 	public Trolly () {
 		this.setSprite(new Sprite ("resources/sprites/train.png"));
