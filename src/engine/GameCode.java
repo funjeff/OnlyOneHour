@@ -32,7 +32,9 @@ public class GameCode {
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
-	static KeyGame kg = new KeyGame();
+	static onlyPipe op = new onlyPipe();
+	static onlyDodge od = new onlyDodge();
+//	static KeyGame kg = new KeyGame();
 	
 	static long lastGameStartTime = 0;
 	static int currentGameID = 0;
@@ -76,8 +78,8 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-//		kg.declare();
-//		kg.startGame (4);
+		
+		//ot.startGame(0);
 	}
 		
 	
@@ -86,37 +88,39 @@ public class GameCode {
 //		kg.isGameOver();
 //		op.isGameOver();
 		ob.isGameOver();
+//		od.isGameOver();
+
 		ObjectHandler.callAll();
-		
-		// Wait to sync with the music
-		if (lastGameStartTime == 0) {
-			if (!currentMusic.isPlaying()) {
-				return;
-			} else {
-				lastGameStartTime = System.currentTimeMillis ();
-			}
-		}
-		
-		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
-		if (elapsedTime >= 6261 && !transitionSpawned) {
-			do {
-				nextGameID = (int)(Math.random() * gameNames.length);
-			} while (nextGameID == currentGameID);
-			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
-			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
-			introAnimation.declare();
-			transitionSpawned = true;
-		}
-		if (elapsedTime >= 8348) {
-			currentGameID = nextGameID;
-			currentMusic.stop ();
-			currentMusic = musicClips[currentGameID];
-			currentMusic.play ();
-			lastGameStartTime = System.currentTimeMillis ();
-			transitionSpawned = false;
-			kg.endGame ();
-		}
-//		if (!t.isStarted()) {
+//		
+//		// Wait to sync with the music
+//		if (lastGameStartTime == 0) {
+//			if (!currentMusic.isPlaying()) {
+//				return;
+//			} else {
+//				lastGameStartTime = System.currentTimeMillis ();
+//			}
+//		}
+//		
+//		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
+//		if (elapsedTime >= 6261 && !transitionSpawned) {
+//			do {
+//				nextGameID = (int)(Math.random() * gameNames.length);
+//			} while (nextGameID == currentGameID);
+//			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
+//			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
+//			introAnimation.declare();
+//			transitionSpawned = true;
+//		}
+//		if (elapsedTime >= 8348) {
+//			currentGameID = nextGameID;
+//			currentMusic.stop ();
+//			currentMusic = musicClips[currentGameID];
+//			currentMusic.play ();
+//			lastGameStartTime = System.currentTimeMillis ();
+//			transitionSpawned = false;
+//			kg.endGame ();
+//		}
+////		if (!t.isStarted()) {
 //			t.startTimer();
 //		}
 //		if (op.isGameOver()) {
@@ -125,7 +129,7 @@ public class GameCode {
 //		oc.isGameOver();
 		//ot.isGameOver();
 	}
-	
+
 	public static void renderFunc () {
 		Graphics g = RenderLoop.wind.getBufferGraphics ();
 		g.setColor (Color.DARK_GRAY);

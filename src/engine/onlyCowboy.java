@@ -104,7 +104,7 @@ public class onlyCowboy {
 			hour = hour + 1;
 			if (hour == 13) {
 				hour = 1;
-				shootTimer = 18 - (difficulty);
+				shootTimer = 15 - (difficulty);
 			}
 			clock.setClockHour(hour);
 			if (pattern == 0) {

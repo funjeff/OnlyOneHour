@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.Random;
+
 public class Pipe extends GameObject{
 	
 	boolean clear = true;	
@@ -9,7 +11,6 @@ public class Pipe extends GameObject{
 	public JumpGuy curGuy;
 	
 	public Pipe (int difficulty) {
-		this.setSprite(new Sprite ("resources/sprites/pipe.png"));
 		this.setRenderPriority(10);
 		this.difficulty = difficulty; 
 	}
@@ -24,7 +25,7 @@ public class Pipe extends GameObject{
 		clear = false;
 		JumpGuy guy = new JumpGuy ();
 		guy.declare(this.getX() + 40,this.getY());
-		guy.setSpeed(.3 + (difficulty*.1));
+		guy.setSpeed(.5 + (difficulty*.1));
 		guy.spawner = this;
 		curGuy = guy;
 	}
@@ -35,7 +36,7 @@ public class Pipe extends GameObject{
 		guy.declare(this.getX() + 40,this.getY());
 		guy.makeLoner();
 		guy.spawner = this;
-		guy.setSpeed(.3 + (difficulty*.1));
+		guy.setSpeed(.7 + (difficulty*.1));
 		curGuy = guy;
 	}
 	
