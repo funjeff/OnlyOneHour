@@ -73,7 +73,7 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		ob.startGame(4);
+		oc.startGame(4);
 		//ot.startGame(4);
 
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
@@ -89,32 +89,32 @@ public class GameCode {
 		ObjectHandler.callAll();
 		
 		// Wait to sync with the music
-		if (lastGameStartTime == 0) {
-			if (!currentMusic.isPlaying()) {
-				return;
-			} else {
-				lastGameStartTime = System.currentTimeMillis ();
-			}
-		}
-		
-		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
-		if (elapsedTime >= 6261 && !transitionSpawned) {
-			do {
-				nextGameID = (int)(Math.random() * gameNames.length);
-			} while (nextGameID == currentGameID);
-			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
-			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
-			introAnimation.declare();
-			transitionSpawned = true;
-		}
-		if (elapsedTime >= 8348) {
-			currentGameID = nextGameID;
-			currentMusic.stop ();
-			currentMusic = musicClips[currentGameID];
-			currentMusic.play ();
-			lastGameStartTime = System.currentTimeMillis ();
-			transitionSpawned = false;
-		}
+//		if (lastGameStartTime == 0) {
+//			if (!currentMusic.isPlaying()) {
+//				return;
+//			} else {
+//				lastGameStartTime = System.currentTimeMillis ();
+//			}
+//		}
+//		
+//		long elapsedTime = System.currentTimeMillis () - lastGameStartTime;
+//		if (elapsedTime >= 6261 && !transitionSpawned) {
+//			do {
+//				nextGameID = (int)(Math.random() * gameNames.length);
+//			} while (nextGameID == currentGameID);
+//			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
+//			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
+//			introAnimation.declare();
+//			transitionSpawned = true;
+//		}
+//		if (elapsedTime >= 8348) {
+//			currentGameID = nextGameID;
+//			currentMusic.stop ();
+//			currentMusic = musicClips[currentGameID];
+//			currentMusic.play ();
+//			lastGameStartTime = System.currentTimeMillis ();
+//			transitionSpawned = false;
+//		}
 //		if (!t.isStarted()) {
 //		
 //		// Wait to sync with the music
@@ -151,7 +151,7 @@ public class GameCode {
 //		if (op.isGameOver()) {
 //			op.endGame();
 //		}
-//		oc.isGameOver();
+		oc.isGameOver();
 		//ot.isGameOver();
 	}
 
