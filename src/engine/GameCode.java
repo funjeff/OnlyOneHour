@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
+import gameObjects.Bit;
 import gameObjects.KeyGame;
 import map.Room;
 
@@ -27,8 +28,7 @@ public class GameCode {
 	//static Timer t = new Timer (10000);
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
-	static onlyBinary ob = new onlyBinary();
-	static onlyCowboy oc = new onlyCowboy();	
+	static KeyGame ob = new KeyGame();	
 	
 	
 	public static void testBitch () {
@@ -48,7 +48,7 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		oc.startGame(4);
+		ob.startGame(4);
 	}
 		
 	
@@ -56,6 +56,7 @@ public class GameCode {
 	public static void gameLoopFunc () {
 //		op.isGameOver();
 		ObjectHandler.callAll();
+		ob.frameEvent ();
 //		if (!t.isStarted()) {
 //			t.startTimer();
 //		}
