@@ -83,7 +83,7 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-		startNewGame (0);
+		startNewGame (2);
 		//ot.startGame(0);
 	}
 		

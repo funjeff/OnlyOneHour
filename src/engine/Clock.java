@@ -20,12 +20,12 @@ public class Clock extends GameObject {
 			startTime = false;
 		}
 		if (tikOrTok) {
-			AudioClip tik = new AudioClip("file:resources/sounds/tik" + rand.nextInt(2) + ".wav");
+			AudioClip tik = new AudioClip("file:resources/sounds/tik" + rand.nextInt(3) + ".wav");
 			tik.play();
 			tikOrTok = false;
 		}
 		else {
-			AudioClip tok = new AudioClip("file:resources/sounds/tok" + rand.nextInt(2) + ".wav");
+			AudioClip tok = new AudioClip("file:resources/sounds/tok" + rand.nextInt(3) + ".wav");
 			tok.play();
 			tikOrTok = true;
 		}

@@ -235,6 +235,7 @@ public class onlyCowboy extends GameObject implements Game {
 					cd = new ConditionDisplay(isGameWon);
 					cd.declare();
 				}
+
 				return true;
 			}
 			

@@ -27,6 +27,7 @@ public class onlyKey extends GameObject implements Game {
 	String[] bonusNames = {"UP ARROW", "DOWN ARROW", "LEFT ARROW", "RIGHT ARROW", "CAPS LOCK", "SHIFT", "CTRL", "SPACE", "ALT",
 						   "INSERT", "DELETE", "ESC", "HOME", "END", "PAGE UP", "PAGE DOWN"};
 	
+	int difficulty = 0;
 	int[] allKeys;
 	String[] allNames;
 	
@@ -57,7 +58,8 @@ public class onlyKey extends GameObject implements Game {
 	}
 	
 	void generateKey () {
-		int randomKeyIndex = (int)(Math.random() * allKeys.length);
+		int sampleCount = (int)(((double)allKeys.length / 10) * (difficulty + 1));
+		int randomKeyIndex = (int)(Math.random() * sampleCount);
 		correctKey = allKeys[randomKeyIndex];
 		correctKeyStr = allNames[randomKeyIndex];
 		System.out.println(correctKeyStr);
@@ -65,9 +67,10 @@ public class onlyKey extends GameObject implements Game {
 	
 	@Override
 	public void startGame (int difficulty) {
+		this.difficulty = difficulty;
 		keyBackground = new GameBackground(new Sprite("resources/sprites/Keyboard.png"));
 		generateKey();
-		gameTimer = new Timer(difficulty * 1000, Color.black);
+		gameTimer = new Timer(5500, Color.BLACK);
 		gameTimer.declare (460, 40);
 		gameTimer.startTimer ();
 		gameTime = difficulty * 1000;
@@ -105,9 +108,10 @@ public class onlyKey extends GameObject implements Game {
 	
 	@Override
 	public void frameEvent () {
+		System.out.println(gameTimer.hasExpired());
 		if (!won && gameTimer.hasExpired() && failText == null) {
 			failText = new BigText("TIME'S UP", Color.RED, 80);
-			failText.declare(300, 270);
+			failText.declare(300, 300);
 			displayTexts.add (failText);
 		}
 		if (!guessedCorrect) {
