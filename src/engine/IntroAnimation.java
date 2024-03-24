@@ -49,6 +49,8 @@ public class IntroAnimation extends GameObject {
 	int[] fadeoutTime = {1565, 1878};
 	int[] fadeinTime = {2191, 2220};
 	
+	int funny;
+	
 	public IntroAnimation(String thirdWord, int effectType) {
 		thirdWordText = thirdWord;
 		this.effectId = effectType;
@@ -58,6 +60,8 @@ public class IntroAnimation extends GameObject {
 		word1 = genText(firstWordText, f);
 		word2 = genText(secondWordText, f);
 		word3 = genText(thirdWordText, f);
+		
+		funny = (int)(Math.random () * 100);
 		
 		setRenderPriority(20);
 	}
@@ -276,7 +280,7 @@ public class IntroAnimation extends GameObject {
 			AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)currentFade);
 			g.setComposite (ac);
 			g.setColor (new Color(0, 0, 0));
-			if (effectId == EFFECT_ID_WORDS_FADE) {
+			if (funny >= 95) {
 				g.drawImage (new Sprite("resources/sprites/whopper ad.png").getFrame (0), 0, 0, null);
 			} else {
 				g.fillRect (0, 0, 960, 540);
