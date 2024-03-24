@@ -17,7 +17,8 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
-import gameObjects.KeyGame;
+import gameObjects.onlyKey;
+import gameObjects.onlyFPS;
 import map.Room;
 
 
@@ -32,7 +33,8 @@ public class GameCode {
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
-	static KeyGame kg = new KeyGame();
+	static onlyKey kg = new onlyKey();
+	static onlyFPS mg = new onlyFPS();
 	
 	static long lastGameStartTime = 0;
 	static int currentGameID = 0;
@@ -76,8 +78,8 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-		kg.declare ();
-		kg.startGame (4);
+		mg.declare ();
+		mg.startGame (4);
 	}
 		
 	
@@ -112,7 +114,7 @@ public class GameCode {
 			currentMusic.play ();
 			lastGameStartTime = System.currentTimeMillis ();
 			transitionSpawned = false;
-			kg.endGame ();
+			mg.endGame ();
 		}
 //		if (!t.isStarted()) {
 //			t.startTimer();

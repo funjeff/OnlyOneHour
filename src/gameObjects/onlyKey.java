@@ -10,7 +10,7 @@ import engine.IntroAnimation;
 import engine.Sprite;
 import engine.Timer;
 
-public class KeyGame extends GameObject implements Game {
+public class onlyKey extends GameObject implements Game {
 
 	GameBackground keyBackground;
 	int correctKey;
@@ -32,7 +32,7 @@ public class KeyGame extends GameObject implements Game {
 	
 	ArrayList<BigText> displayTexts;
 	
-	public KeyGame () {
+	public onlyKey () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
 		allNames = new String[possibleKeys.length() + bonusKeys.length];
 		for (int i = 0; i < possibleKeys.length(); i++) {
