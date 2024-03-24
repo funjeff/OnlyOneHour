@@ -30,7 +30,7 @@ public class GameCode {
 	//static Timer t = new Timer (10000);
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
-	static onlyBinary ob = new onlyBinary();
+	static onlyKey ob = new onlyKey();
 	static onlyCowboy oc = new onlyCowboy();	
 	static onlyTrolly ot = new onlyTrolly();
 	static onlyPipe op = new onlyPipe();
@@ -73,6 +73,7 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
+		ob.declare ();
 		ob.startGame(4);
 		//ot.startGame(4);
 
@@ -106,7 +107,7 @@ public class GameCode {
 			do {
 				nextGameID = (int)(Math.random() * gameNames.length);
 			} while (nextGameID == currentGameID);
-			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 4));
+			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 5));
 			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
 			introAnimation.declare();
 			transitionSpawned = true;

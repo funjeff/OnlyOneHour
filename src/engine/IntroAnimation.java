@@ -16,6 +16,7 @@ public class IntroAnimation extends GameObject {
 	public static final int EFFECT_ID_WORDS_LEFT_TO_RIGHT = 1;
 	public static final int EFFECT_ID_WORDS_TOP_TO_BOTTOM = 2;
 	public static final int EFFECT_ID_WORDS_STAR_WARS = 3;
+	public static final int EFFECT_ID_WORDS_CROSS = 4;
 	
 	public static final int[] MS_OFFSETS = {-500, 0, 0, 0, -250};
 	
@@ -255,6 +256,21 @@ public class IntroAnimation extends GameObject {
 			drawTextWithTransform (firstWordText, f, 480, 740 - word1Progress * 540, 6 * (1 - word1Progress), 2 * (1 - word1Progress), 0);
 			drawTextWithTransform (secondWordText, f, 480, 740 - word2Progress * 540, 6 * (1 - word2Progress), 2 * (1 - word2Progress), 0);
 			drawTextWithTransform (thirdWordText, f, 480, 740 - word3Progress * 540, 6 * (1 - word3Progress), 2 * (1 - word3Progress), 0);
+		}
+		
+		if (effectId == EFFECT_ID_WORDS_CROSS) {
+			Font f = new Font ("Comic Sans MS",Font.PLAIN,60);
+			Color prevColor = wordColor;
+			String[] texts = new String[] {firstWordText, secondWordText, thirdWordText};
+			double[] progresses = new double[] {word1Progress, word2Progress, word3Progress};
+			for (int i = 0; i < texts.length; i++) {
+				String text = texts[i];
+				double prog = progresses[i];
+				wordColor = new Color(wordColor.getRed (), wordColor.getGreen (), wordColor.getBlue (), (int)((0.5 - Math.abs(platFunc(prog) - 0.5)) * 510));
+				drawTextWithTransform (text, f, -200 + 1360 * platFunc(prog), -150 + 740 * platFunc(prog), 1, 1, 0);
+				drawTextWithTransform (text, f, 1160 - 1360 * platFunc(prog), 690 - 740 * platFunc(prog), 1, 1, 0);
+			}
+			wordColor = prevColor;
 		}
 		
 		if (currentFade != 0) {
