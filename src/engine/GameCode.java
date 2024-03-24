@@ -29,7 +29,7 @@ public class GameCode {
 	//static onlyTimer ot = new onlyTimer ();
 	static onlyBinary ob = new onlyBinary();
 	static onlyCowboy oc = new onlyCowboy();	
-	
+	static onlyTrolly ot = new onlyTrolly();
 	
 	public static void testBitch () {
 		
@@ -48,7 +48,8 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		oc.startGame(4);
+		//oc.startGame(4);
+		ot.startGame(4);
 	}
 		
 	
@@ -62,7 +63,8 @@ public class GameCode {
 //		if (op.isGameOver()) {
 //			op.endGame();
 //		}
-		
+//		oc.isGameOver();
+		ot.isGameOver();
 	}
 	
 	public static void renderFunc () {

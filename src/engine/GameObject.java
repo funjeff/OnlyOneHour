@@ -136,7 +136,7 @@ public abstract class GameObject extends GameAPI {
 	 */
 	private boolean doesScale = true;
 	
-	private double drawRotation;
+	public double drawRotation;
 	private double anchorX;
 	private double anchorY;
 	
