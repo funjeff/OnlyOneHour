@@ -18,6 +18,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import gameObjects.onlyKey;
+import gameObjects.Game;
 import gameObjects.onlyFPS;
 import map.Room;
 
@@ -30,11 +31,6 @@ public class GameCode {
 	//static Timer t = new Timer (10000);
 	//static IntroAnimation in = new IntroAnimation("HOUR");
 	//static onlyTimer ot = new onlyTimer ();
-	static onlyKey ob = new onlyKey();
-	static onlyCowboy oc = new onlyCowboy();	
-	static onlyTrolly ot = new onlyTrolly();
-	static onlyPipe op = new onlyPipe();
-	static onlyDodge od = new onlyDodge();
 //	static KeyGame kg = new KeyGame();
 	
 	static long lastGameStartTime = 0;
@@ -43,9 +39,10 @@ public class GameCode {
 	static boolean transitionSpawned = false;
 	
 	static AudioClip currentMusic;
+	static Game currGame;
 	
-	static String[] gameNames = {"COWBOY", "DODGE", "DOLLAR", "KEY", "LIFE", "PERSON", "11111111111111"};
-	static Color[] gameTransitionColors = {Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE};
+	static String[] gameNames = {"COWBOY", "DODGE", "MINUTE", "KEY", "LEFT", "PERSON", "11111111111111", "FPS"};
+	static Color[] gameTransitionColors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE};
 	static AudioClip[] musicClips = {
 			new AudioClip("file:resources/music/1_cowboy.wav"),
 			new AudioClip("file:resources/music/1_dodge.wav"),
@@ -53,7 +50,8 @@ public class GameCode {
 			new AudioClip("file:resources/music/1_key.wav"),
 			new AudioClip("file:resources/music/1_life.wav"),
 			new AudioClip("file:resources/music/1_person.wav"),
-			new AudioClip("file:resources/music/only_1s.wav")
+			new AudioClip("file:resources/music/only_1s.wav"),
+			new AudioClip("file:resources/music/1_dollar.wav")
 	};
 	
 	public static void testBitch () {
@@ -73,17 +71,55 @@ public class GameCode {
 		//in.declare(100, 100);
 		//t.declare(100, 100);'
 		//op.startGame(0);
-		ob.declare ();
-		ob.startGame(4);
 		//ot.startGame(4);
 
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
+		startNewGame (0);
+		
 		
 	}
 		
+	public static void startNewGame (int gameId) {
+		
+		switch (gameId) {
+			case 0:
+				currGame = new onlyCowboy();
+				break;
+			case 1:
+				currGame = new onlyDodge();
+				break;
+			case 2:
+				currGame = new onlyTimer();
+				break;
+			case 3:
+				currGame = new onlyKey();
+				break;
+			case 4:
+				currGame = new onlyTrolly();
+				break;
+			case 5:
+				currGame = new onlyPipe();
+				break;
+			case 6:
+				currGame = new onlyBinary();
+				break;
+			case 7:
+				currGame = new onlyFPS();
+				break;
+		}
+		((GameObject)currGame).declare ();
+		currGame.startGame (0);
+		
+	}
 	
+	public static void endCurrentGame () {
+		
+		currGame.endGame ();
+		((GameObject)currGame).forget ();
+		
+	}
 	
 	public static void gameLoopFunc () {
 
@@ -104,7 +140,7 @@ public class GameCode {
 				nextGameID = (int)(Math.random() * gameNames.length);
 			} while (nextGameID == currentGameID);
 			IntroAnimation introAnimation = new IntroAnimation(gameNames[nextGameID], (int)(Math.random () * 5));
-			introAnimation.setWordColor (gameTransitionColors[nextGameID]);
+			introAnimation.setWordColor (gameTransitionColors[currentGameID]);
 			introAnimation.declare();
 			transitionSpawned = true;
 		}
@@ -115,7 +151,11 @@ public class GameCode {
 			currentMusic.play ();
 			lastGameStartTime = System.currentTimeMillis ();
 			transitionSpawned = false;
+			endCurrentGame();
+			startNewGame(currentGameID);
 		}
+		
+		currGame.isGameOver ();
 //		if (!t.isStarted()) {
 //		
 //		// Wait to sync with the music

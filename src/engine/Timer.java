@@ -46,6 +46,10 @@ public class Timer extends GameObject {
 		}
 	}
 	
+	public int getElapsed () {
+		return (int)(System.currentTimeMillis () - timeStartMillis);
+	}
+	
 	public boolean isStarted () {
 		return timeStartMillis != 0;
 	}

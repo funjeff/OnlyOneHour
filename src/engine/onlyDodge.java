@@ -4,7 +4,7 @@ import java.util.Random;
 
 import gameObjects.Game;
 
-public class onlyDodge implements Game {
+public class onlyDodge extends GameObject implements Game {
 	public static void main(String[] args) {
 		onlyBinary ob = new onlyBinary();
 		ob.startGame(0);

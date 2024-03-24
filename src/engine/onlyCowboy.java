@@ -2,9 +2,10 @@ package engine;
 
 import java.util.Random;
 
+import gameObjects.Game;
 import map.Background;
 
-public class onlyCowboy {
+public class onlyCowboy extends GameObject implements Game {
 	
 	int difficulty = 0;
 	CowboySpectator boy1;

@@ -67,8 +67,6 @@ public class onlyKey extends GameObject implements Game {
 		gameTimer.declare (460, 40);
 		gameTimer.startTimer ();
 		gameTime = difficulty * 1000;
-		IntroAnimation anim = new IntroAnimation("LEFT", IntroAnimation.EFFECT_ID_WORDS_STAR_WARS);
-		anim.declare (300, 300);
 		displayTexts = new ArrayList<BigText> ();
 	}
 

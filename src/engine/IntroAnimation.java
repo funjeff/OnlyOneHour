@@ -69,7 +69,6 @@ public class IntroAnimation extends GameObject {
 	
 	public double rotFunc (double val) {
 		double x = 4 * (val - 0.5);
-		System.out.println(clamp (Math.sin (Math.PI * x) / (Math.pow (x, 4) + 1)));
 		return Math.sin (Math.PI * x) / (Math.pow (x, 4) + 1);
 	}
 	
