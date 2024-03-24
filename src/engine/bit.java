@@ -17,13 +17,11 @@ public class bit extends GameObject {
 	
 	@Override
 	public void frameEvent() {
-		System.out.print(getCursorY());
 		if (getCursorX()/1284 >= this.getX() &&
 				getCursorX()/1284 <= this.getX() + this.getSprite().getWidth() &&
 				getCursorY()/721.333333333 >= this.getY() &&
 				getCursorY()/721.333333333 <= this.getY() + this.getSprite().getHeight() &&
 				this.mouseButtonReleased(0)) {
-			System.out.print("OW THAT HURTS");
 			if (val == 0) {
 				this.setSprite(new Sprite("resources/sprites/1 bit.png"));
 				val = 1;
@@ -33,9 +31,6 @@ public class bit extends GameObject {
 				this.setSprite(new Sprite("resources/sprites/0 bit.png"));
 				val = 0;
 			}
-		}
-		else if (this.mouseButtonClicked(0)){
-//			System.out.print("ARE YOU WORKING");
 		}
 	}
 	

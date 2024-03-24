@@ -81,9 +81,10 @@ public class GameCode {
 		// IntroAnimation("LEFT", (int)(Math.random() * 5)).declare();
 		currentMusic = musicClips[0];
 		currentMusic.play ();
-		startNewGame (3);
-		
-		
+		startNewGame (0);
+		//ot.startGame(0);
+		ConditionDisplay cd = new ConditionDisplay(true);
+		cd.declare();
 	}
 		
 	public static void startNewGame (int gameId) {
@@ -144,7 +145,6 @@ public class GameCode {
 		if (elapsedTime >= 6261 && !transitionSpawned) {
 			do {
 				nextGameID = (int)(Math.random() * (gottenOnlyOneMinute ? gameNames.length - 1 : gameNames.length));
-				nextGameID = (int)(Math.random() * 2) * 3;
 			} while (nextGameID == currentGameID);
 			if (nextGameID == 7) {
 				gottenOnlyOneMinute = true;

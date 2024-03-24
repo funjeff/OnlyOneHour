@@ -13,6 +13,8 @@ public class onlyBinary extends GameObject implements Game {
 	public boolean isGameWon = false;
 	public bit[] allBits;
 	public Timer t = new Timer (5000);
+	static Random rand = new Random();
+	public boolean startedGame = false;
 
 	public Background2 code = new Background2 (new Sprite ("resources/sprites/code backgroud.png"));
 	
@@ -21,6 +23,28 @@ public class onlyBinary extends GameObject implements Game {
 	}
 	
 	public void addNumbers() {
+		
+		int index = rand.nextInt(7);
+		AudioClip ac = new AudioClip("file:resources/sounds/yeahIGotThis.wav");
+		if (index == 0) {
+			ac = new AudioClip("file:resources/sounds/conspiracyTheory.wav");
+		}
+		else if (index == 1) {
+			ac = new AudioClip("file:resources/sounds/redBullEmptyCan.wav");
+		}
+		else if (index == 2) {
+			ac = new AudioClip("file:resources/sounds/justAltF4Already.wav");
+		}
+		else if (index == 3) {
+			ac = new AudioClip("file:resources/sounds/itsTimeToGetMyGameOn.wav");
+		}
+		else if (index == 4) {
+			ac = new AudioClip("file:resources/sounds/hackingIntoTheMainframe.wav");
+		}
+		else if (index == 5) {
+			ac = new AudioClip("file:resources/sounds/colonelSneakingAround.wav");
+		}
+		ac.play();
 		
 		t.declare(460, 100);
 		t.startTimer();
@@ -58,6 +82,26 @@ public class onlyBinary extends GameObject implements Game {
 			if (allBits[i].selectedWrong) {
 				for (int j = 0; j < allBits.length; j++) {
 					allBits[j].setSprite(new Sprite("resources/sprites/0 bit.png"));
+				}
+				int index = rand.nextInt(7);
+				AudioClip ac = new AudioClip("file:resources/sounds/yeahIGotThis.wav");
+				if (index == 0) {
+					ac = new AudioClip("file:resources/sounds/bitCrunchIt.wav");
+				}
+				else if (index == 1) {
+					ac = new AudioClip("file:resources/sounds/redBullEmptyCan.wav");
+				}
+				else if (index == 2) {
+					ac = new AudioClip("file:resources/sounds/justAltF4Already.wav");
+				}
+				else if (index == 3) {
+					ac = new AudioClip("file:resources/sounds/itsTimeToGetMyGameOn.wav");
+				}
+				else if (index == 4) {
+					ac = new AudioClip("file:resources/sounds/hackingIntoTheMainframe.wav");
+				}
+				else if (index == 5) {
+					ac = new AudioClip("file:resources/sounds/colonelSneakingAround.wav");
 				}
 				isGameWon = false;
 				return true;
