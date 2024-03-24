@@ -80,6 +80,8 @@ public class GameCode {
 		currentMusic.play ();
 		
 		//ot.startGame(0);
+		ConditionDisplay cd = new ConditionDisplay(true);
+		cd.declare();
 	}
 		
 	

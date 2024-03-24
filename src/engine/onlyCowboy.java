@@ -139,12 +139,16 @@ public class onlyCowboy {
 			if (realboy1.shotOther) {
 				realboy2.getShot(true);
 				isGameWon = true;
+				ConditionDisplay cd = new ConditionDisplay(isGameWon);
+				cd.declare();
 				return true;
 			}
 			
 			if (realboy2.shotOther) {
 				realboy1.getShot(false);
 				isGameWon = false;
+				ConditionDisplay cd = new ConditionDisplay(isGameWon);
+				cd.declare();
 				return true;
 			}
 			
