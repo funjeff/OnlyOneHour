@@ -15,6 +15,8 @@ public class onlyBinary extends GameObject implements Game {
 	public Timer t = new Timer (5000);
 	static Random rand = new Random();
 	public boolean startedGame = false;
+	
+	ConditionDisplay cd;
 
 	public Background2 code = new Background2 (new Sprite ("resources/sprites/code backgroud.png"));
 	
@@ -68,11 +70,18 @@ public class onlyBinary extends GameObject implements Game {
 			allBits[j].forget();
 		}
 		code.forget ();
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 	
 	public boolean isGameOver() {
 		if (t.hasExpired()) {
 			isGameWon = false;
+			if (cd == null) {
+				cd = new ConditionDisplay(isGameWon);
+				cd.declare();
+			}
 			return true;
 		}
 		for (int i = 0; i < allBits.length; i++) {
@@ -101,6 +110,10 @@ public class onlyBinary extends GameObject implements Game {
 					ac = new AudioClip("file:resources/sounds/colonelSneakingAround.wav");
 				}
 				isGameWon = false;
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 		}
@@ -108,6 +121,11 @@ public class onlyBinary extends GameObject implements Game {
 			if (allBits[i].val == 0) {
 				return false;
 			}
+		}
+		isGameWon = true;
+		if (cd == null) {
+			cd = new ConditionDisplay(isGameWon);
+			cd.declare();
 		}
 		return true;
 	}

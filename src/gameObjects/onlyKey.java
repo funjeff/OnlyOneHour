@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import engine.AudioClip;
+import engine.ConditionDisplay;
+
 import java.awt.event.KeyEvent;
 import engine.GameObject;
 import engine.IntroAnimation;
@@ -40,6 +42,8 @@ public class onlyKey extends GameObject implements Game {
 	
 	ArrayList<BigText> displayTexts;
 	
+	ConditionDisplay cd;
+	
 	public onlyKey () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
 		allNames = new String[possibleKeys.length() + bonusKeys.length];
@@ -58,7 +62,6 @@ public class onlyKey extends GameObject implements Game {
 		int randomKeyIndex = (int)(Math.random() * sampleCount);
 		correctKey = allKeys[randomKeyIndex];
 		correctKeyStr = allNames[randomKeyIndex];
-		System.out.println(correctKeyStr);
 	}
 	
 	@Override
@@ -82,10 +85,18 @@ public class onlyKey extends GameObject implements Game {
 			currText.forget ();
 		}
 		keyBackground.forget ();
+		
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 
 	@Override
 	public boolean isGameOver () {
+		if (cd == null && won) {
+			cd = new ConditionDisplay(true);
+			cd.declare();
+		}
 		return won || gameTimer.hasExpired();
 	}
 
@@ -96,10 +107,12 @@ public class onlyKey extends GameObject implements Game {
 	
 	@Override
 	public void frameEvent () {
-		System.out.println(gameTimer.hasExpired());
 		if (!won && gameTimer.hasExpired() && failText == null) {
-			failText = new BigText("TIME'S UP", Color.RED, 80);
-			failText.declare(300, 300);
+			failText = new BigText("The key was:", Color.RED, 80);
+			failText.declare(250, 220);
+			displayTexts.add (failText);
+			failText = new BigText(correctKeyStr, Color.RED, 80);
+			failText.declare(250, 300);
 			displayTexts.add (failText);
 		}
 		if (!guessedCorrect) {

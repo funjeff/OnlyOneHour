@@ -23,9 +23,11 @@ public class onlyTrolly extends GameObject implements Game {
 	
 	int correctChoice = 0;
 	
+	ConditionDisplay cd;
+	
 	
 	public onlyTrolly(int correctChoice) {
-		this.correctChoice = 0;
+		this.correctChoice = correctChoice;
 	}
 	
 	public void setTheScene() {
@@ -103,6 +105,10 @@ public class onlyTrolly extends GameObject implements Game {
 		for (int i = 0; i < blood.size(); i = i) {
 			blood.get(i).forget();
 		}
+		
+		if (cd != null) {
+			cd.forget();
+		}
 	}
 	
 	public boolean isGameOver() {
@@ -118,6 +124,15 @@ public class onlyTrolly extends GameObject implements Game {
 				trappedGroup.makeExplode(210,30);
 				nextEplosion = 100000000;
 				trappedGroup.hide();
+				if (correctChoice == 1) {
+					isGameWon = true;
+				} else {
+					isGameWon = false;					
+				}
+				if (cd == null) {
+					cd = new ConditionDisplay(isGameWon);
+					cd.declare();
+				}
 				return true;
 			}
 			if (nextEplosion == 521) {
@@ -168,6 +183,15 @@ public class onlyTrolly extends GameObject implements Game {
 			}
 			end.play();
 			trappedSolo.makeExplode();
+			if (correctChoice == 0) {
+				isGameWon = true;
+			} else {
+				isGameWon = false;					
+			}
+			if (cd == null) {
+				cd = new ConditionDisplay(isGameWon);
+				cd.declare();
+			}
 			//TODO was game won?
 			return true;
 		}

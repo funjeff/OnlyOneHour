@@ -18,6 +18,8 @@ public class onlyPipe extends GameObject implements Game {
 	
 	Background2 sewerBackground = new Background2 (new Sprite ("resources/sprites/sewerbackground.png"));
 	
+	ConditionDisplay cd;
+	
 	public onlyPipe() {
 	}
 	
@@ -140,6 +142,10 @@ public class onlyPipe extends GameObject implements Game {
 			p3.forget();
 		}
 		
+		if (cd != null) {
+			cd.forget();
+		}
+		sewerBackground.forget();
 	}
 	
 	public boolean isGameOver() {
@@ -186,11 +192,19 @@ public class onlyPipe extends GameObject implements Game {
 			}		
 		if (p1.lost || p2.lost || p3.lost) {
 			isGameWon = false;
+			if (cd == null) {
+				cd = new ConditionDisplay(isGameWon);
+				cd.declare();
+			}
 			return true;
 		}
 		
 		if (p1.won || p2.won || p3.won) {
 			isGameWon = true;
+			if (cd == null) {
+				cd = new ConditionDisplay(isGameWon);
+				cd.declare();
+			}
 			return true;
 		} else {
 			return false;
