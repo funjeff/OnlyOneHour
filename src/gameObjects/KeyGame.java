@@ -1,8 +1,8 @@
 package gameObjects;
 
 import java.awt.Color;
-
-import com.sun.glass.events.KeyEvent;
+import java.util.ArrayList;
+import java.awt.event.KeyEvent;
 
 import engine.GameObject;
 import engine.IntroAnimation;
@@ -27,8 +27,9 @@ public class KeyGame extends GameObject implements Game {
 	Timer gameTimer;
 	
 	BigText currText = null;
-	BigText timerText = null;
 	boolean guessedCorrect = false;
+	
+	ArrayList<BigText> displayTexts;
 	
 	public KeyGame () {
 		allKeys = new int[possibleKeys.length() + bonusKeys.length];
@@ -52,21 +53,26 @@ public class KeyGame extends GameObject implements Game {
 	
 	@Override
 	public void startGame (int difficulty) {
-		keyBackground = new GameBackground(new Sprite("resources/sprites/keygamebg.png"));
+		keyBackground = new GameBackground(new Sprite("resources/sprites/Keyboard.png"));
 		generateKey();
 		gameTimer = new Timer(difficulty * 1000);
-		gameTimer.declare (200, 200);
+		gameTimer.declare (460, 40);
 		gameTimer.startTimer ();
 		gameTime = difficulty * 1000;
 		IntroAnimation anim = new IntroAnimation("LEFT", IntroAnimation.EFFECT_ID_WORDS_STAR_WARS);
 		anim.declare (300, 300);
-		
+		displayTexts = new ArrayList<BigText> ();
 	}
 
 	@Override
 	public void endGame () {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < displayTexts.size (); i++) {
+			displayTexts.get (i).forget ();
+		}
+		if (currText != null) {
+			currText.forget ();
+		}
+		keyBackground.forget ();
 	}
 
 	@Override
@@ -88,13 +94,17 @@ public class KeyGame extends GameObject implements Game {
 				int currKey = allKeys[i];
 				if (this.keyPressed (currKey)) {
 					if (currKey == correctKey) {
-						new BigText("The key was:", Color.MAGENTA, 80).declare(250, 220);
+						BigText newText = new BigText("The key was:", Color.MAGENTA, 80);
+						newText.declare(250, 220);
+						displayTexts.add (newText);
 						currText = new BigText(correctKeyStr, Color.MAGENTA, 80);
 						currText.declare(250, 300);
+						displayTexts.add (currText);
 						guessedCorrect = true;
 					} else {
-						currText = new BigText("Nope", Color.WHITE, 80);
+						currText = new BigText("Nope", Color.BLACK, 80);
 						currText.declare(Math.random() * 800, Math.random() * 500);
+						displayTexts.add (currText);
 					}
 				}
 			}
