@@ -86,10 +86,6 @@ public class GameCode {
 	
 	
 	public static void gameLoopFunc () {
-//		kg.isGameOver();
-//		op.isGameOver();
-		ob.isGameOver();
-//		od.isGameOver();
 
 		ObjectHandler.callAll();
 		
