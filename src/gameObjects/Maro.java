@@ -136,6 +136,10 @@ public class Maro extends GameObject {
 		
 		// Falling
 		if (getY () > 540 && !dead) {
+			if (!died) {
+				AudioClip ac = new AudioClip("file:resources/sounds/maroFalling.wav");
+				ac.play();
+			}
 			died = true;
 		}
 	}

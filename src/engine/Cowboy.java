@@ -9,6 +9,8 @@ public class Cowboy extends GameObject{
 	boolean requriesClick = false;
 	boolean shotOther = false;
 	boolean soundEff = true;
+
+	static Random rand = new Random();
 	
 	public Cowboy (boolean color) {
 		if (color) {
@@ -37,6 +39,26 @@ public class Cowboy extends GameObject{
 		
 		if (requriesClick && mouseButtonReleased(0) && shootTimer == -1) {
 			shot = 2;
+			if (soundEff) {
+				int index = rand.nextInt(5);
+				AudioClip gun = new AudioClip("file:resources/sounds/gun" + rand.nextInt(3) + ".wav");
+				gun.play();
+				AudioClip ac = new AudioClip("file:resources/sounds/shouldntaChallengedMe.wav");
+				if (index == 0) {
+					ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+				}
+				else if (index == 1) {
+					ac = new AudioClip("file:resources/sounds/goodHeavensIMightDieSoon.wav");
+				}
+				else if (index == 2) {
+					ac = new AudioClip("file:resources/sounds/inDyingGetMeADoctor.wav");
+				}
+				else if (index == 3) {
+					ac = new AudioClip("file:resources/sounds/looksLikeImTheLastOneStanding.wav");
+				}
+				ac.play();
+				soundEff = false;
+			}
 		}
 		
 		if (!requriesClick && shootTimer == 0) {
@@ -45,12 +67,11 @@ public class Cowboy extends GameObject{
 	}
 	
 	public void getShot (boolean dir) {
-		Random rand = new Random();
-		int index = rand.nextInt(6);
 		if (soundEff) {
+			int index = rand.nextInt(6);
 			AudioClip gun = new AudioClip("file:resources/sounds/gun" + rand.nextInt(3) + ".wav");
 			gun.play();
-			AudioClip ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
+			AudioClip ac = new AudioClip("file:resources/sounds/shouldntaChallengedMe.wav");
 			if (index == 0) {
 				ac = new AudioClip("file:resources/sounds/jeffreyFemurCrusher.wav");
 			}
@@ -63,16 +84,13 @@ public class Cowboy extends GameObject{
 			else if (index == 3) {
 				ac = new AudioClip("file:resources/sounds/looksLikeImTheLastOneStanding.wav");
 			}
-			else if (index == 4) {
-				ac = new AudioClip("file:resources/sounds/shouldntaChallengedMe.wav");
-			}
 			ac.play();
+			soundEff = false;
 		}
 		if (dir) {
 			shot = 1;
 		} else {
 			shot = 2;
 		}
-		soundEff = false;
 	}
 }

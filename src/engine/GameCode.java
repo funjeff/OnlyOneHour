@@ -83,8 +83,6 @@ public class GameCode {
 		currentMusic.play ();
 		startNewGame (2);
 		//ot.startGame(0);
-		ConditionDisplay cd = new ConditionDisplay(true);
-		cd.declare();
 	}
 		
 	public static void startNewGame (int gameId) {
