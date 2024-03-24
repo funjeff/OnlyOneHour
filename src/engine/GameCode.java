@@ -217,49 +217,55 @@ public class GameCode {
 				transitionSpawned = true;
 			}
 			if (elapsedTime >= 8348) {
-				if (didWin == -1) {
-					if (currGame.isGameOver()) {
-						if (currGame.wasGameWon()) {
-							didWin = 1;
-							wins = wins + 1;
-							levelUpNum = levelUpNum - 1;
-							if (levelUpNum == 0 && difficulty != 9) {
-								levelUpNum = 1;
-								difficulty = difficulty + 1;
-								didWin = 2;
-							}
-						} else {
-							losses = losses + 1;
-							if (levelUpNum != 3) {
-								levelUpNum = levelUpNum + 1;
-							}
-							didWin = 0;
-						}
-					}
-				} else {
-					currGame.isGameOver();
-				}
-				if (didWin == 2) {
-					if (!fadeoutDir) {
-						fadeoutOpacity = fadeoutOpacity + 5;
-						if (fadeoutOpacity >= 255) {
-							fadeoutOpacity = 255;
-							fadeoutDir = true; 
-						}
-					} else {
-						fadeoutOpacity = fadeoutOpacity - 5;
-					}
-					
-				}
 				currentGameID = nextGameID;
 				currentMusic.stop ();
 				currentMusic = musicClips[currentGameID];
 				currentMusic.play ();
 				lastGameStartTime = System.currentTimeMillis ();
 				transitionSpawned = false;
-				System.out.println("ENDING GAME");
+				fadeoutOpacity = 100;
 				endCurrentGame();
+				didWin = -1;
+				fadeoutDir = false; 
 				startNewGame(currentGameID);
+			}
+			
+			if (didWin == -1) {
+				if (currGame.isGameOver()) {
+					if (currGame.wasGameWon()) {
+						didWin = 1;
+						wins = wins + 1;
+						levelUpNum = levelUpNum - 1;
+						if (levelUpNum == 0 && difficulty != 9) {
+							levelUpNum = 1;
+							difficulty = difficulty + 1;
+							didWin = 2;
+						}
+					} else {
+						losses = losses + 1;
+						levelUpNum = levelUpNum + 1;
+						didWin = 0;
+						if (levelUpNum == 4) {
+							difficulty = difficulty - 1;
+							levelUpNum = 2;
+							didWin = 3;
+						}
+					}
+				}
+			} else {
+				currGame.isGameOver();
+			}
+			if (didWin == 2 || didWin == 3) {
+				if (!fadeoutDir) {
+					fadeoutOpacity = fadeoutOpacity + 5;
+					if (fadeoutOpacity >= 255) {
+						fadeoutOpacity = 255;
+						fadeoutDir = true; 
+					}
+				} else {
+					fadeoutOpacity = fadeoutOpacity - 5;
+				}
+				
 			}
 			
 			currGame.isGameOver ();
